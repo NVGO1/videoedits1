@@ -70,7 +70,7 @@ export function HomePage() {
         <FAQSection />
       </main>
 
-      <ContactWidget />
+      {/* <ContactWidget /> */}
       <LandingFooter />
     </div>
   );
