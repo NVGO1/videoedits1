@@ -8,9 +8,23 @@ const basicRoutes = require("./routes/index");
 const { connectDB } = require("./config/database");
 const cors = require("cors");
 
-if (!process.env.DATABASE_URL) {
-  console.error("Error: DATABASE_URL variables in .env missing.");
+// Validate required environment variables
+const requiredEnvVars = ['DATABASE_URL'];
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+
+if (missingEnvVars.length > 0) {
+  console.error(`Error: Required environment variables missing: ${missingEnvVars.join(', ')}`);
+  console.error("Please check your .env file and ensure all required variables are set.");
   process.exit(-1);
+}
+
+// Warn about missing optional API keys
+const optionalEnvVars = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY'];
+const missingOptionalVars = optionalEnvVars.filter(envVar => !process.env[envVar]);
+
+if (missingOptionalVars.length > 0) {
+  console.warn(`Warning: Optional environment variables missing: ${missingOptionalVars.join(', ')}`);
+  console.warn("LLM services may not function properly without these keys.");
 }
 
 const app = express();
