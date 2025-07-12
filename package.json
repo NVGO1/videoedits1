@@ -1,6 +1,11 @@
 {
-  "dependencies": {
-    "lucide-react": "^0.525.0",
-    "react-hook-form": "^7.60.0"
+  "name": "videoedits1-workspace",
+  "version": "1.0.0",
+  "description": "Video editing project workspace",
+  "private": true,
+  "scripts": {
+    "install-all": "cd VidEditMVPLP && npm install",
+    "start": "cd VidEditMVPLP && npm start",
+    "build": "cd VidEditMVPLP && npm run build"
   }
 }
