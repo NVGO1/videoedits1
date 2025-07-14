@@ -9,15 +9,17 @@ import { PrivacyPage } from "./pages/PrivacyPage"
 function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="ui-theme">
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="*" element={<BlankPage />} />
-        </Routes>
-      </Router>
-      <Toaster />
+      <>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="*" element={<BlankPage />} />
+          </Routes>
+        </Router>
+        <Toaster />
+      </>
     </ThemeProvider>
   )
 }

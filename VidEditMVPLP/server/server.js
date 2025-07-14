@@ -46,6 +46,36 @@ app.on("error", (error) => {
   console.error(error.stack);
 });
 
+// --- Gemini API Test Route ---
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+// The library will automatically use Application Default Credentials
+// if the API_KEY is not provided.
+const genAI = new GoogleGenerativeAI();
+
+app.get("/api/gemini-test", async (req, res) => {
+  try {
+    console.log("Gemini test route hit. Attempting to generate content...");
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const prompt = "In one short sentence, what is the purpose of a rubber duck?";
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    
+    console.log("Successfully received response from Gemini API.");
+    res.status(200).json({ success: true, response: text });
+  } catch (error) {
+    console.error("Error calling Gemini API:", error);
+    res.status(500).json({
+        success: false,
+        message: "Failed to call Gemini API.",
+        error: error.message
+    });
+  }
+});
+// ----------------------------
+
 // Basic Routes
 app.use(basicRoutes);
 

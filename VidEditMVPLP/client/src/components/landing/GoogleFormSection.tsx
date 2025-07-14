@@ -14,9 +14,9 @@ export function GoogleFormSection() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-background/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-border/50 overflow-hidden">
             <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLScEKUc21_SQTHfX-zz5XuBJDunFMnLKiIG1n7bWv-_V5ppsHQ/viewform?embedded=true"
-              width="100%"
-              height="800"
+ src="https://docs.google.com/forms/d/e/1FAIpQLScEKUc21_SQTHfX-zz5XuBJDunFMnLKiIG1n7bWv-_V5ppsHQ/viewform?usp=dialog"
+ width="100%"
+              height="2100"
               frameBorder="0"
               marginHeight={0}
               marginWidth={0}

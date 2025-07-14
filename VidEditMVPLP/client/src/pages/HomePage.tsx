@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+;
 import { HeroSection } from '../components/landing/HeroSection';
 import { BenefitsSection } from '../components/landing/BenefitsSection';
 import { WhatYouGetSection } from '../components/landing/WhatYouGetSection';
