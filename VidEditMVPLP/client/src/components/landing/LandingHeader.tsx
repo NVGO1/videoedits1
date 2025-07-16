@@ -11,7 +11,7 @@ const navigationItems = [
   { name: 'Examples', href: '#examples' },
   { name: 'Pricing', href: '#pricing' },
   { name: 'Testimonials', href: '#testimonials' },
-  { name: 'Get Started', href: '#google-form' },
+  { name: 'Get Started', href: '#custom-form' },
   { name: 'FAQ', href: '#faq' }
 ];
 

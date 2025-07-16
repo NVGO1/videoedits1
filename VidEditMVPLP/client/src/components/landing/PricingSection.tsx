@@ -22,7 +22,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
 
   const scrollToForm = (planId: string) => {
     setSelectedPlan(planId);
-    const formSection = document.getElementById('google-form');
+    const formSection = document.getElementById('custom-form');
     if (formSection) {
       formSection.scrollIntoView({ behavior: 'smooth' });
     }

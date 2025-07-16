@@ -32,7 +32,7 @@ const faqs = [
 
 export function FAQSection() {
   const scrollToForm = () => {
-    const formSection = document.getElementById('google-form');
+    const formSection = document.getElementById('custom-form');
     if (formSection) {
       formSection.scrollIntoView({ behavior: 'smooth' });
     }

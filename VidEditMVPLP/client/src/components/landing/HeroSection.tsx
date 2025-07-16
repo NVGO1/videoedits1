@@ -3,7 +3,7 @@ import { ArrowRight, Play } from 'lucide-react';
 
 export function HeroSection() {
   const scrollToForm = () => {
-    const formSection = document.getElementById('google-form');
+    const formSection = document.getElementById('custom-form');
     if (formSection) {
       formSection.scrollIntoView({ behavior: 'smooth' });
     }
