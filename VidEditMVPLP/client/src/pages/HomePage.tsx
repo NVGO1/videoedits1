@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-;
 import { HeroSection } from '../components/landing/HeroSection';
 import { BenefitsSection } from '../components/landing/BenefitsSection';
 import { WhatYouGetSection } from '../components/landing/WhatYouGetSection';
 import { VideoExamplesSection } from '../components/landing/VideoExamplesSection';
 import { PricingSection } from '../components/landing/PricingSection';
 import { TestimonialsSection } from '../components/landing/TestimonialsSection';
-import { GoogleFormSection } from '../components/landing/GoogleFormSection';
+import { CustomFormSection } from '../components/landing/CustomFormSection';
 import { FAQSection } from '../components/landing/FAQSection';
-import { ContactWidget } from '../components/landing/ContactWidget';
 import { LandingHeader } from '../components/landing/LandingHeader';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { ProgressIndicator } from '../components/landing/ProgressIndicator';
@@ -67,11 +65,10 @@ export function HomePage() {
         <VideoExamplesSection />
         <PricingSection plans={pricingPlans} />
         <TestimonialsSection testimonials={testimonials} />
-        <GoogleFormSection />
+        <CustomFormSection />
         <FAQSection />
       </main>
 
-      {/* <ContactWidget /> */}
       <LandingFooter />
     </div>
   );
