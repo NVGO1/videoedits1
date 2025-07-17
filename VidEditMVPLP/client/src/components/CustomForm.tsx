@@ -35,7 +35,6 @@ const CustomForm = () => {
 
   const onSubmit = (data: FormData) => {
     const netlifyFormData = new FormData();
-    netlifyFormData.append('form-name', 'nvgo-order');
     
     // Append all fields to the form data
     (Object.keys(data) as Array<keyof FormData>).forEach((key) => {
@@ -44,21 +43,26 @@ const CustomForm = () => {
             netlifyFormData.append(key, value.join(', '));
         } else if (key === 'footage' && value instanceof FileList && value.length > 0) {
             netlifyFormData.append(key, value[0]);
-        } else if (typeof value === 'string') {
+        } else if (typeof value === 'string' && value) {
             netlifyFormData.append(key, value);
         }
     });
 
-    fetch('/', {
+    fetch('/.netlify/functions/submitOrder', {
       method: 'POST',
       body: netlifyFormData,
     })
-      .then(() => {
-        alert('Thank you for your submission!');
-        // Or redirect to a thank you page: window.location.href = '/thank-you';
+      .then(response => {
+        if (response.ok && response.redirected) {
+          window.location.href = response.url;
+        } else {
+            // Handle cases where the function might return an error
+            alert('There was an issue with your submission. Please try again.');
+        }
       })
       .catch((error) => {
-        alert(`Submission Error: ${error.message}`);
+        console.error('Submission Error:', error);
+        alert(`An error occurred: ${error.message}`);
       });
   };
 
@@ -78,17 +82,11 @@ const CustomForm = () => {
     <div className="p-6 md:p-8 space-y-8">
       <form
         name="nvgo-order"
-        method="POST"
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         encType="multipart/form-data"
         noValidate
       >
-        <input type="hidden" name="form-name" value="nvgo-order" />
-        <p className="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
