@@ -33,13 +33,9 @@ const CustomForm = () => {
     }
   });
 
-  // react-hook-form's handleSubmit will now pass the form to Netlify's handler
-  // because of the data-netlify attribute. No custom fetch is needed.
-  const onSubmit = () => {
-    // This function is intentionally left blank.
-    // The form submission is handled by Netlify's built-in functionality
-    // due to the `data-netlify="true"` and `method="POST"` attributes on the form.
-  };
+  // This is intentionally blank. 
+  // react-hook-form handles validation, and then Netlify's `action` attribute handles the submission and redirect.
+  const onSubmit = () => {};
 
   const videoOptions = [
     { value: 'Up to 5 minutes - ($90)', label: 'Up to 5 minutes - ($90)' },
@@ -59,17 +55,16 @@ const CustomForm = () => {
         name="nvgo-order"
         method="POST"
         action="/thankyou"
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
         encType="multipart/form-data"
         noValidate
       >
         <input type="hidden" name="form-name" value="nvgo-order" />
         <p className="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
 
-        {/* ... (rest of the form fields remain the same) ... */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
