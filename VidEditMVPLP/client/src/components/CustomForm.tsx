@@ -33,37 +33,12 @@ const CustomForm = () => {
     }
   });
 
-  const onSubmit = (data: FormData) => {
-    const netlifyFormData = new FormData();
-    
-    // Append all fields to the form data
-    (Object.keys(data) as Array<keyof FormData>).forEach((key) => {
-        const value = data[key];
-        if (key === 'keyFeatures' && Array.isArray(value)) {
-            netlifyFormData.append(key, value.join(', '));
-        } else if (key === 'footage' && value instanceof FileList && value.length > 0) {
-            netlifyFormData.append(key, value[0]);
-        } else if (typeof value === 'string' && value) {
-            netlifyFormData.append(key, value);
-        }
-    });
-
-    fetch('/.netlify/functions/submitOrder', {
-      method: 'POST',
-      body: netlifyFormData,
-    })
-      .then(response => {
-        if (response.ok && response.redirected) {
-          window.location.href = response.url;
-        } else {
-            // Handle cases where the function might return an error
-            alert('There was an issue with your submission. Please try again.');
-        }
-      })
-      .catch((error) => {
-        console.error('Submission Error:', error);
-        alert(`An error occurred: ${error.message}`);
-      });
+  // react-hook-form's handleSubmit will now pass the form to Netlify's handler
+  // because of the data-netlify attribute. No custom fetch is needed.
+  const onSubmit = () => {
+    // This function is intentionally left blank.
+    // The form submission is handled by Netlify's built-in functionality
+    // due to the `data-netlify="true"` and `method="POST"` attributes on the form.
   };
 
   const videoOptions = [
@@ -82,11 +57,19 @@ const CustomForm = () => {
     <div className="p-6 md:p-8 space-y-8">
       <form
         name="nvgo-order"
+        method="POST"
+        action="/thankyou"
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
         encType="multipart/form-data"
         noValidate
       >
+        <input type="hidden" name="form-name" value="nvgo-order" />
+        <p className="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+
+        {/* ... (rest of the form fields remain the same) ... */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
