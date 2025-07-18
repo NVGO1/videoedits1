@@ -1,25 +1,14 @@
 const { google } = require('googleapis');
 
 exports.handler = async (event, context) => {
-  console.log('=== SUBMISSION-CREATED FUNCTION TRIGGERED ===');
+  console.log('=== NVGO-ORDER-SUBMISSION FUNCTION TRIGGERED ===');
   console.log('Event method:', event.httpMethod);
-  console.log('Event headers:', JSON.stringify(event.headers, null, 2));
   console.log('Event body:', event.body);
-  console.log('Event context:', JSON.stringify(context, null, 2));
   
   try {
     // Parse the submission data from Netlify
     const submission = JSON.parse(event.body);
     console.log('Parsed submission:', JSON.stringify(submission, null, 2));
-    
-    // Check if this is our nvgo-order form
-    if (submission.form_name !== 'nvgo-order') {
-      console.log('Not nvgo-order form, skipping. Form name:', submission.form_name);
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Not nvgo-order form, skipped' })
-      };
-    }
     
     // Extract form data
     const formData = submission.data;
@@ -27,20 +16,6 @@ exports.handler = async (event, context) => {
     const { name, email, videoLength, contentType, keyFeatures, projectDetails, uploadLink } = formData;
     
     console.log('Form data extracted:', { name, email, videoLength });
-
-    // Calculate amount based on video length
-    const priceMap = {
-      '5 min': 90,
-      '10 min': 120,
-      '15 min': 150
-    };
-    
-    const amount = priceMap[videoLength] || 90;
-    console.log('Calculated amount:', amount);
-
-    // Generate PayPal link
-    const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${process.env.PAYPAL_BUSINESS_EMAIL || 'support@letsnvgo.com'}&amount=${amount}&item_name=NVGO ${videoLength} Edit&custom=${email}&return=https://letsnvgo.com/thankyou`;
-    console.log('Generated PayPal link:', paypalLink);
 
     // Write to Google Sheets if credentials are available
     console.log('Checking Google Sheets credentials...');
@@ -113,14 +88,12 @@ exports.handler = async (event, context) => {
       console.log('- SHEET_ID missing:', !process.env.SHEET_ID);
     }
 
-    // Store PayPal link for redirect (we'll handle this differently)
     console.log('Function completed successfully');
     
     return {
       statusCode: 200,
       body: JSON.stringify({ 
-        message: 'Submission processed successfully',
-        paypalLink: paypalLink
+        message: 'NVGO order processed successfully'
       })
     };
 
