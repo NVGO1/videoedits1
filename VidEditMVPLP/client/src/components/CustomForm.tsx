@@ -46,18 +46,24 @@ const CustomForm: React.FC = () => {
       // Generate PayPal link
       const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
       
-      // Submit form to Netlify (this will trigger our background function)
+      // Submit form to Netlify Forms (this will trigger submission-created function)
       const form = e.target as HTMLFormElement;
       const formDataObj = new FormData(form);
       
-      await fetch('/', {
+      // Add the form-name field to ensure Netlify processes it correctly
+      formDataObj.append('form-name', 'nvgo-order');
+      
+      const response = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataObj as any).toString()
+        body: formDataObj
       });
       
-      // Redirect to thank you page with PayPal link
-      window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
+      if (response.ok) {
+        // Redirect to thank you page with PayPal link
+        window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
+      } else {
+        throw new Error('Form submission failed');
+      }
       
     } catch (error) {
       console.error('Form submission error:', error);

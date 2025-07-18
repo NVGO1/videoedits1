@@ -54,15 +54,15 @@ const ThankYouPage: React.FC = () => {
             <iframe
               src={paypalLink}
               width="100%"
-              height="400"
-              frameBorder="0"
-              scrolling="no"
+              height="650"
               style={{ 
                 border: '1px solid #ddd', 
                 borderRadius: '4px',
-                marginBottom: '20px'
+                marginBottom: '20px',
+                minHeight: '650px'
               }}
               title="PayPal Payment"
+              allow="payment"
             />
             
             <p style={{ fontSize: '14px', color: '#888' }}>
