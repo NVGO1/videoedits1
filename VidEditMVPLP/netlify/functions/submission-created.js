@@ -1,22 +1,19 @@
 const { google } = require('googleapis');
 
 exports.handler = async (event, context) => {
-  // Only handle POST requests
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
-  }
-
+  console.log('Submission-created function triggered');
+  console.log('Event body:', event.body);
+  
   try {
-    // Parse form data
-    const body = new URLSearchParams(event.body);
-    const formData = Object.fromEntries(body);
+    // Parse the submission data from Netlify
+    const submission = JSON.parse(event.body);
+    console.log('Parsed submission:', submission);
     
-    console.log('Form submission received:', formData);
-
+    // Extract form data
+    const formData = submission.data;
     const { name, email, videoLength, contentType, keyFeatures, projectDetails, uploadLink } = formData;
+    
+    console.log('Form data extracted:', { name, email, videoLength });
 
     // Calculate amount based on video length
     const priceMap = {
@@ -26,9 +23,11 @@ exports.handler = async (event, context) => {
     };
     
     const amount = priceMap[videoLength] || 90;
+    console.log('Calculated amount:', amount);
 
     // Generate PayPal link
     const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${process.env.PAYPAL_BUSINESS_EMAIL || 'support@letsnvgo.com'}&amount=${amount}&item_name=NVGO ${videoLength} Edit&custom=${email}&return=https://letsnvgo.com/thankyou`;
+    console.log('Generated PayPal link:', paypalLink);
 
     // Write to Google Sheets if credentials are available
     console.log('Checking Google Sheets credentials...');
@@ -94,7 +93,6 @@ exports.handler = async (event, context) => {
         console.error('Error message:', sheetsError.message);
         console.error('Error code:', sheetsError.code);
         console.error('Full error:', sheetsError);
-        // Continue even if sheets fails - don't block the user
       }
     } else {
       console.log('Google Sheets credentials not configured:');
@@ -102,12 +100,15 @@ exports.handler = async (event, context) => {
       console.log('- SHEET_ID missing:', !process.env.SHEET_ID);
     }
 
-    // Redirect to thank you page with PayPal link
+    // Store PayPal link for redirect (we'll handle this differently)
+    console.log('Function completed successfully');
+    
     return {
-      statusCode: 302,
-      headers: {
-        Location: `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(name)}&amount=${amount}`
-      }
+      statusCode: 200,
+      body: JSON.stringify({ 
+        message: 'Submission processed successfully',
+        paypalLink: paypalLink
+      })
     };
 
   } catch (error) {
@@ -115,9 +116,6 @@ exports.handler = async (event, context) => {
     
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify({ 
         error: 'Internal server error',
         message: error.message 

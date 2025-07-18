@@ -34,15 +34,35 @@ const CustomForm: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Let Netlify handle the form submission
-    const form = e.target as HTMLFormElement;
-    
     try {
-      // This will be handled by Netlify Forms and then trigger our function
-      form.submit();
+      // Calculate amount for PayPal link
+      const priceMap = {
+        '5 min': 90,
+        '10 min': 120,
+        '15 min': 150
+      };
+      const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
+      
+      // Generate PayPal link
+      const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
+      
+      // Submit form to Netlify (this will trigger our background function)
+      const form = e.target as HTMLFormElement;
+      const formDataObj = new FormData(form);
+      
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataObj as any).toString()
+      });
+      
+      // Redirect to thank you page with PayPal link
+      window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
+      
     } catch (error) {
       console.error('Form submission error:', error);
       setIsSubmitting(false);
+      alert('There was an error submitting your form. Please try again.');
     }
   };
 
@@ -88,13 +108,15 @@ const CustomForm: React.FC = () => {
       <form 
         name="nvgo-order" 
         method="POST" 
-        action="/.netlify/functions/submitOrder"
         data-netlify="true" 
+        data-netlify-honeypot="bot-field"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
       >
         {/* Hidden field required for Netlify Forms */}
         <input type="hidden" name="form-name" value="nvgo-order" />
+        {/* Honeypot field for spam protection */}
+        <input type="hidden" name="bot-field" />
         
         <div style={containerStyle}>
           <label htmlFor="name" style={labelStyle}>Name *</label>
