@@ -1,177 +1,256 @@
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Textarea } from './ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { RadioGroup, RadioGroupItem } from './ui/radio-group';
-import { Checkbox } from './ui/checkbox';
+import React, { useState } from 'react';
 
-type FormData = {
+interface FormData {
   name: string;
   email: string;
   videoLength: string;
   contentType: string;
-  keyFeatures: string[];
+  keyFeatures: string;
   projectDetails: string;
-  footage: FileList | null;
   uploadLink: string;
-};
+}
 
-const CustomForm = () => {
-  const { register, handleSubmit, control, formState: { errors }, watch, setValue } = useForm<FormData>({
-    defaultValues: {
-      name: '',
-      email: '',
-      videoLength: '',
-      contentType: '',
-      keyFeatures: [],
-      projectDetails: '',
-      uploadLink: '',
-      footage: null,
-    }
+const CustomForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    videoLength: '',
+    contentType: '',
+    keyFeatures: '',
+    projectDetails: '',
+    uploadLink: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // This is intentionally blank. 
-  // react-hook-form handles validation, and then Netlify's `action` attribute handles the submission and redirect.
-  const onSubmit = () => {};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-  const videoOptions = [
-    { value: 'Up to 5 minutes - ($90)', label: 'Up to 5 minutes - ($90)' },
-    { value: 'Up to 10 minutes - ($120)', label: 'Up to 10 minutes - ($120)' },
-    { value: 'Up to 15 minutes - ($150)', label: 'Up to 15 minutes - ($150)' },
-  ];
-  const contentTypeOptions = ["Gaming", "Tutorial", "Vlog", "Other"];
-  const keyFeaturesOptions = ["Motion Graphics", "Captions", "Color Grading", "All"];
-  const individualFeatures = keyFeaturesOptions.filter(f => f !== 'All');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Let Netlify handle the form submission
+    const form = e.target as HTMLFormElement;
+    
+    try {
+      // This will be handled by Netlify Forms and then trigger our function
+      form.submit();
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsSubmitting(false);
+    }
+  };
 
-  const watchFootage = watch('footage');
-  const watchUploadLink = watch('uploadLink');
+  // Common input styles with proper contrast for both light and dark modes
+  const inputStyle = {
+    width: '100%',
+    padding: '12px',
+    marginTop: '6px',
+    border: '2px solid #d1d5db',
+    borderRadius: '6px',
+    fontSize: '16px',
+    backgroundColor: '#ffffff',
+    color: '#1f2937',
+    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+    boxSizing: 'border-box' as const,
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+  };
+
+  const labelStyle = {
+    display: 'block',
+    marginBottom: '4px',
+    fontWeight: '600',
+    color: 'inherit', // This will inherit the text color from the parent theme
+    fontSize: '14px'
+  };
+
+  const containerStyle = {
+    marginBottom: '20px'
+  };
+
+  const smallTextStyle = {
+    color: 'rgba(156, 163, 175, 0.8)', // Semi-transparent gray that works in both modes
+    fontSize: '12px',
+    display: 'block' as const,
+    marginTop: '4px'
+  };
 
   return (
-    <div className="p-6 md:p-8 space-y-8">
-      <form
-        name="nvgo-order"
-        method="POST"
-        action="/thankyou"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6"
+    <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
+      <h2 style={{ color: 'inherit', marginBottom: '30px', textAlign: 'center' }}>
+        NVGO Video Editing Request
+      </h2>
+      <form 
+        name="nvgo-order" 
+        method="POST" 
+        action="/.netlify/functions/submitOrder"
+        data-netlify="true" 
         encType="multipart/form-data"
-        noValidate
+        onSubmit={handleSubmit}
       >
+        {/* Hidden field required for Netlify Forms */}
         <input type="hidden" name="form-name" value="nvgo-order" />
-        <p className="hidden"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-1">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" {...register('name', { required: 'Name is required.' })} placeholder="Your Name" />
-            {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>}
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" {...register('email', { required: 'Email is required.', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address.' } })} placeholder="your.email@example.com" />
-            {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>}
-          </div>
-        </div>
-
-        <div className="space-y-1">
-          <Label>What is the video length you need?</Label>
-          <Controller
-            name="videoLength"
-            control={control}
-            rules={{ required: 'Please select a video length.' }}
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger><SelectValue placeholder="Select video length" /></SelectTrigger>
-                <SelectContent>
-                  {videoOptions.map(option => <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>)}
-                </SelectContent>
-              </Select>
-            )}
+        
+        <div style={containerStyle}>
+          <label htmlFor="name" style={labelStyle}>Name *</label>
+          <input 
+            type="text" 
+            id="name"
+            name="name" 
+            value={formData.name}
+            onChange={handleChange}
+            required 
+            style={{
+              ...inputStyle,
+              ':focus': { borderColor: '#007cba', outline: 'none' }
+            }}
           />
-          {errors.videoLength && <p className="text-sm text-red-500 mt-1">{errors.videoLength.message}</p>}
         </div>
 
-        <div className="space-y-1">
-          <Label>What type is your content?</Label>
-          <Controller
-            name="contentType"
-            control={control}
-            rules={{ required: 'Please select a content type.' }}
-            render={({ field }) => (
-              <RadioGroup onValueChange={field.onChange} value={field.value} className="flex flex-col space-y-1">
-                {contentTypeOptions.map(option => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <RadioGroupItem value={option} id={`content-${option}`} />
-                    <Label htmlFor={`content-${option}`} className="font-normal">{option}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            )}
+        <div style={containerStyle}>
+          <label htmlFor="email" style={labelStyle}>Email *</label>
+          <input 
+            type="email" 
+            id="email"
+            name="email" 
+            value={formData.email}
+            onChange={handleChange}
+            required 
+            style={inputStyle}
           />
-          {errors.contentType && <p className="text-sm text-red-500 mt-1">{errors.contentType.message}</p>}
         </div>
 
-        <div className="space-y-1">
-          <Label>Key Features</Label>
-          <Controller
-              name="keyFeatures"
-              control={control}
-              rules={{ validate: value => value.length > 0 || 'Please select at least one feature.' }}
-              render={({ field }) => (
-                  <>
-                      {keyFeaturesOptions.map(option => (
-                          <div key={option} className="flex items-center space-x-2">
-                              <Checkbox
-                                  id={`feature-${option}`}
-                                  checked={field.value.includes(option)}
-                                  onCheckedChange={(checked) => {
-                                      let newValues = [...field.value];
-                                      if (option === 'All') {
-                                        newValues = checked ? [...keyFeaturesOptions] : [];
-                                      } else {
-                                        newValues = checked ? [...newValues, option] : newValues.filter(val => val !== option);
-                                        if (newValues.filter(v => v !== 'All').length === individualFeatures.length) {
-                                            if (!newValues.includes('All')) newValues.push('All');
-                                        } else {
-                                            newValues = newValues.filter(v => v !== 'All');
-                                        }
-                                      }
-                                      setValue('keyFeatures', newValues, { shouldValidate: true });
-                                  }}
-                              />
-                              <Label htmlFor={`feature-${option}`} className="font-normal">{option}</Label>
-                          </div>
-                      ))}
-                  </>
-              )}
+        <div style={containerStyle}>
+          <label htmlFor="videoLength" style={labelStyle}>Video Length *</label>
+          <select 
+            id="videoLength"
+            name="videoLength" 
+            value={formData.videoLength}
+            onChange={handleChange}
+            required
+            style={{
+              ...inputStyle,
+              cursor: 'pointer'
+            }}
+          >
+            <option value="" style={{ color: '#999' }}>Select video length</option>
+            <option value="5 min" style={{ color: '#333' }}>5 min ($90)</option>
+            <option value="10 min" style={{ color: '#333' }}>10 min ($120)</option>
+            <option value="15 min" style={{ color: '#333' }}>15 min ($150)</option>
+          </select>
+        </div>
+
+        <div style={containerStyle}>
+          <label htmlFor="contentType" style={labelStyle}>Content Type</label>
+          <input 
+            type="text" 
+            id="contentType"
+            name="contentType" 
+            value={formData.contentType}
+            onChange={handleChange}
+            placeholder="e.g., Tutorial, Vlog, Product Demo"
+            style={inputStyle}
           />
-          {errors.keyFeatures && <p className="text-sm text-red-500 mt-1">{errors.keyFeatures.message}</p>}
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="projectDetails">Please describe your project and mention any additional details or special requests.</Label>
-          <Textarea id="projectDetails" {...register('projectDetails', { required: 'Project details are required.' })} placeholder="Tell us more about your vision..." />
-          {errors.projectDetails && <p className="text-sm text-red-500 mt-1">{errors.projectDetails.message}</p>}
+        <div style={containerStyle}>
+          <label htmlFor="keyFeatures" style={labelStyle}>Key Features Needed</label>
+          <input 
+            type="text" 
+            id="keyFeatures"
+            name="keyFeatures" 
+            value={formData.keyFeatures}
+            onChange={handleChange}
+            placeholder="e.g., Transitions, Text overlays, Music"
+            style={inputStyle}
+          />
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="footage">Footage Upload (only if your files are under 100mb)</Label>
-          <Input id="footage" type="file" {...register('footage', { validate: () => (watchFootage && watchFootage.length > 0) || !!watchUploadLink || 'Please upload a file or provide a link.' })} />
-          <p className="text-sm text-muted-foreground pt-2">For files over 100MB: please use a service like WeTransfer, Dropbox, or Google Drive and paste the link below.</p>
+        <div style={containerStyle}>
+          <label htmlFor="projectDetails" style={labelStyle}>Project Details</label>
+          <textarea 
+            id="projectDetails"
+            name="projectDetails" 
+            value={formData.projectDetails}
+            onChange={handleChange}
+            placeholder="Describe your vision, style preferences, target audience, etc."
+            rows={4}
+            style={{
+              ...inputStyle,
+              resize: 'vertical',
+              minHeight: '100px'
+            }}
+          />
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="uploadLink">Or Paste Link for Larger Files</Label>
-          <Input id="uploadLink" type="text" {...register('uploadLink')} placeholder="https://we.tl/..." />
-           {errors.footage && <p className="text-sm text-red-500 mt-1">{errors.footage.message}</p>}
+        <div style={containerStyle}>
+          <label htmlFor="footage" style={labelStyle}>Upload Footage (Max 100MB)</label>
+          <input 
+            type="file" 
+            id="footage"
+            name="footage" 
+            accept="video/*"
+            style={{
+              ...inputStyle,
+              paddingTop: '8px',
+              paddingBottom: '8px'
+            }}
+          />
+          <small style={smallTextStyle}>
+            For files larger than 100MB, use the link field below
+          </small>
         </div>
 
-        <Button type="submit" className="w-full">Submit</Button>
+        <div style={containerStyle}>
+          <label htmlFor="uploadLink" style={labelStyle}>Or Paste Upload Link</label>
+          <input 
+            type="url" 
+            id="uploadLink"
+            name="uploadLink" 
+            value={formData.uploadLink}
+            onChange={handleChange}
+            placeholder="WeTransfer, Google Drive, Dropbox link, etc."
+            style={inputStyle}
+          />
+          <small style={smallTextStyle}>
+            Or email large files to support@letsnvgo.com with your name and email
+          </small>
+        </div>
+
+        <button 
+          type="submit" 
+          disabled={isSubmitting}
+          style={{ 
+            width: '100%',
+            padding: '16px 24px', 
+            backgroundColor: isSubmitting ? '#94a3b8' : '#007cba', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '8px',
+            fontSize: '18px',
+            fontWeight: '600',
+            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            transition: 'background-color 0.2s ease',
+            marginTop: '10px'
+          }}
+          onMouseOver={(e) => {
+            if (!isSubmitting) {
+              e.currentTarget.style.backgroundColor = '#0056b3';
+            }
+          }}
+          onMouseOut={(e) => {
+            if (!isSubmitting) {
+              e.currentTarget.style.backgroundColor = '#007cba';
+            }
+          }}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit & Pay →'}
+        </button>
       </form>
     </div>
   );

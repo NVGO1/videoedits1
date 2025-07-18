@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NVGO Order Form</title>
+</head>
+<body>
+    <!-- This hidden form helps Netlify detect the form structure -->
+    <form name="nvgo-order" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <select name="videoLength">
+            <option value="5 min">5 min</option>
+            <option value="10 min">10 min</option>
+            <option value="15 min">15 min</option>
+        </select>
+        <input type="text" name="contentType" />
+        <input type="text" name="keyFeatures" />
+        <textarea name="projectDetails"></textarea>
+        <input type="file" name="footage" />
+        <input type="url" name="uploadLink" />
+    </form>
+</body>
+</html>
