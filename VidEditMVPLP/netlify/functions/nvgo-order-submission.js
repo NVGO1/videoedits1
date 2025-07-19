@@ -30,15 +30,36 @@ exports.handler = async (event, context) => {
         const serviceAccount = JSON.parse(process.env.GOOGLE_SA);
         console.log('Service account parsed successfully');
         console.log('Service account email:', serviceAccount.client_email);
+        console.log('Service account project_id:', serviceAccount.project_id);
+        console.log('Service account private_key_id:', serviceAccount.private_key_id);
         
-        // Set up Google Sheets authentication
-        const auth = new google.auth.GoogleAuth({
-          credentials: serviceAccount,
-          scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-        });
+        // Test if we can access the spreadsheet metadata first
+        console.log('Testing spreadsheet access...');
+        
+        // Set up Google Sheets authentication using JWT
+        const auth = new google.auth.JWT(
+          serviceAccount.client_email,
+          null,
+          serviceAccount.private_key,
+          ['https://www.googleapis.com/auth/spreadsheets']
+        );
 
         console.log('Setting up Google Sheets client...');
         const sheets = google.sheets({ version: 'v4', auth });
+
+        // First, try to get spreadsheet metadata to verify access
+        console.log('Testing basic spreadsheet access...');
+        try {
+          const metadata = await sheets.spreadsheets.get({
+            spreadsheetId: process.env.SHEET_ID
+          });
+          console.log('✅ Successfully accessed spreadsheet metadata');
+          console.log('Spreadsheet title:', metadata.data.properties.title);
+          console.log('Available sheets:', metadata.data.sheets.map(sheet => sheet.properties.title));
+        } catch (metadataError) {
+          console.error('❌ Failed to access spreadsheet metadata:', metadataError.message);
+          throw metadataError;
+        }
 
         console.log('Attempting to write to Google Sheets...');
         console.log('Sheet ID:', process.env.SHEET_ID);
