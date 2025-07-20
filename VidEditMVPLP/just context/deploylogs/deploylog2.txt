@@ -1,0 +1,200 @@
+log for failed deploy
+
+The Netlify deploy errored, with the following guidance provided:
+
+**Diagnosis:**
+[line 91](#L91)-[line 96](#L96) indicates that the build failed because a Netlify Function is using the "googleapis" dependency which has not been installed.
+
+**Solution:**
+To resolve this issue, the user needs to follow these steps:
+1. Verify that the "googleapis" package is in the project's top-level "package.json" file or was committed to the repository.
+2. Add the "googleapis" dependency to the top-level "package.json" file if it's missing.
+3. Alternatively, the user can run "npm install" or "yarn" inside the Netlify Function in the build command to install the missing dependency.
+4. If the above methods don't work, the user can add the "@netlify/plugin-functions-install-core" plugin to the "netlify.toml" configuration file as suggested in the build logs.
+
+The relevant error logs are:
+
+Line 78: [90m(build.command completed in 3.2s)[39m
+Line 79: [96m[1m​[22m[39m
+Line 80: [96m[1mFunctions bundling                                            [22m[39m
+Line 81: [96m[1m────────────────────────────────────────────────────────────────[22m[39m
+Line 82: ​
+Line 83: Packaging Functions from [36m/opt/build/repo/VidEditMVPLP/netlify/functions[39m directory:
+Line 84:  - submission-created.js
+Line 85:  - submitOrder.js
+Line 86: ​
+Line 87: [91m[1m​[22m[39m
+Line 88: [91m[1mDependencies installation error                               [22m[39m
+Line 89: [91m[1m────────────────────────────────────────────────────────────────[22m[39m
+Line 90: ​
+Line 91:   [31m[1mError message[22m[39m
+Line 92:   A Netlify Function is using "googleapis" but that dependency has not been installed yet.
+Line 93: ​
+Line 94:   By default, dependencies inside a Netlify Function's "package.json" are not automatically installed.
+  There are several ways 
+Line 95:     - Removing your Function's "package.json" and adding the dependencies to the project's top-level "package.json" instead. Thi
+Line 96:     - Running "npm install" or "yarn" inside your Netlify Function in your build command.
+Line 97:     - Adding the following plugin to your "netlify.toml":
+Line 98: ​
+Line 99:   [[plugins]]
+Line 100:   package = "@netlify/plugin-functions-install-core"
+Line 101: ​​
+Line 111:     commandOrigin: config
+Line 112:     environment:
+Line 113:       - GOOGLE_SA
+Line 114:       - PAYPAL_BUSINESS_EMAIL
+Line 115:       - SHEET_ID
+Line 116:     publish: /opt/build/repo/VidEditMVPLP/client/dist
+Line 117:     publishOrigin: config
+Line 118:   functionsDirectory: /opt/build/repo/VidEditMVPLP/netlify/functions
+Line 119:   redirects:
+Line 120:     - from: /api/*
+      status: 200
+      to: /.netlify/functions/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+Line 121: Build failed due to a user error: Build script returned non-zero exit code: 2
+Line 122: Failed during stage 'building site': Build script returned non-zero exit code: 2
+Line 123: Failing build: Failed to build site
+Line 124: Finished processing build request in 30.066s
+
+
+
+
+
+full Log
+
+12:02:18 PM: build-image version: bbc21dac11d2294a9d0d8a7cf18850f179f7f76b (noble)
+12:02:18 PM: buildbot version: bbc21dac11d2294a9d0d8a7cf18850f179f7f76b
+12:02:18 PM: Fetching cached dependencies
+12:02:18 PM: Starting to download cache of 392.8MB (Last modified: 2025-07-18 08:17:23 +0000 UTC)
+12:02:19 PM: Finished downloading cache in 1.424s
+12:02:19 PM: Starting to extract cache
+12:02:34 PM: Finished extracting cache in 14.709s
+12:02:34 PM: Finished fetching cache in 16.21s
+12:02:34 PM: Starting to prepare the repo for build
+12:02:34 PM: Preparing Git Reference refs/heads/main
+12:02:35 PM: Custom publish path detected. Proceeding with the specified path: 'VidEditMVPLP/client/dist'
+12:02:35 PM: Custom functions path detected. Proceeding with the specified path: 'VidEditMVPLP/netlify/functions'
+12:02:36 PM: Starting to install dependencies
+12:02:36 PM: Started restoring cached python cache
+12:02:36 PM: Finished restoring cached python cache
+12:02:36 PM: Started restoring cached ruby cache
+12:02:37 PM: Finished restoring cached ruby cache
+12:02:38 PM: Started restoring cached go cache
+12:02:38 PM: Finished restoring cached go cache
+12:02:38 PM: Using PHP version
+12:02:39 PM: Started restoring cached Node.js version
+12:02:39 PM: Finished restoring cached Node.js version
+12:02:40 PM: v22.17.1 is already installed.
+12:02:40 PM: Now using node v22.17.1 (npm v10.9.2)
+12:02:40 PM: Enabling Node.js Corepack
+12:02:40 PM: Started restoring cached build plugins
+12:02:40 PM: Finished restoring cached build plugins
+12:02:40 PM: Started restoring cached corepack dependencies
+12:02:40 PM: Finished restoring cached corepack dependencies
+12:02:40 PM: No npm workspaces detected
+12:02:40 PM: Started restoring cached node modules
+12:02:40 PM: Finished restoring cached node modules
+12:02:40 PM: Installing npm packages using npm version 10.9.2
+12:02:41 PM: up to date in 491ms
+12:02:41 PM: npm packages installed
+12:02:41 PM: Successfully installed dependencies
+12:02:41 PM: Starting build script
+12:02:42 PM: Detected 1 framework(s)
+12:02:42 PM: "vite" at version "6.3.5"
+12:02:42 PM: Section completed: initializing
+Building
+Failed
+12:02:44 PM: Netlify Build                                                 
+12:02:44 PM: ────────────────────────────────────────────────────────────────
+12:02:44 PM: ​
+12:02:44 PM: ❯ Version
+12:02:44 PM:   @netlify/build 34.2.5
+12:02:44 PM: ​
+12:02:44 PM: ❯ Flags
+12:02:44 PM:   accountId: 685c39ce22b8deb5b64a9c6f
+12:02:44 PM:   baseRelDir: true
+12:02:44 PM:   buildId: 687a9a38dadc5534709bef89
+12:02:44 PM:   deployId: 687a9a38dadc5534709bef8b
+12:02:44 PM: ​
+12:02:44 PM: ❯ Current directory
+12:02:44 PM:   /opt/build/repo/VidEditMVPLP/client
+12:02:44 PM: ​
+12:02:44 PM: ❯ Config file
+12:02:44 PM:   /opt/build/repo/VidEditMVPLP/client/netlify.toml
+12:02:44 PM: ​
+12:02:44 PM: ❯ Context
+12:02:44 PM:   production
+12:02:44 PM: ​
+12:02:44 PM: build.command from netlify.toml                               
+12:02:44 PM: ────────────────────────────────────────────────────────────────
+12:02:44 PM: ​
+12:02:44 PM: $ npm run build
+12:02:44 PM: > vite_client@0.0.0 build
+12:02:44 PM: > vite build
+12:02:44 PM: vite v6.3.5 building for production...
+12:02:44 PM: transforming...
+12:02:47 PM: ✓ 1695 modules transformed.
+12:02:47 PM: rendering chunks...
+12:02:47 PM: computing gzip size...
+12:02:47 PM: dist/index.html                   0.61 kB │ gzip:   0.38 kB
+12:02:47 PM: dist/assets/index-8R6sXh1l.css   76.34 kB │ gzip:  12.42 kB
+12:02:47 PM: dist/assets/index-OFw785T_.js   366.23 kB │ gzip: 116.75 kB
+12:02:47 PM: ✓ built in 2.78s
+12:02:47 PM: ​
+12:02:47 PM: (build.command completed in 3.2s)
+12:02:47 PM: ​
+12:02:47 PM: Functions bundling                                            
+12:02:47 PM: ────────────────────────────────────────────────────────────────
+12:02:47 PM: ​
+12:02:47 PM: Packaging Functions from /opt/build/repo/VidEditMVPLP/netlify/functions directory:
+12:02:47 PM:  - submission-created.js
+12:02:47 PM:  - submitOrder.js
+12:02:47 PM: ​
+12:02:47 PM: ​
+12:02:47 PM: Dependencies installation error                               
+12:02:47 PM: ────────────────────────────────────────────────────────────────
+12:02:47 PM: ​
+12:02:47 PM:   Error message
+12:02:47 PM:   A Netlify Function is using "googleapis" but that dependency has not been installed yet.
+12:02:47 PM: ​
+12:02:47 PM:   By default, dependencies inside a Netlify Function's "package.json" are not automatically installed.
+  There are several ways to fix this problem:
+12:02:47 PM:     - Removing your Function's "package.json" and adding the dependencies to the project's top-level "package.json" instead. This is the fastest and safest solution.
+12:02:47 PM:     - Running "npm install" or "yarn" inside your Netlify Function in your build command.
+12:02:47 PM:     - Adding the following plugin to your "netlify.toml":
+12:02:47 PM: ​
+12:02:47 PM:   [[plugins]]
+12:02:47 PM:   package = "@netlify/plugin-functions-install-core"
+12:02:47 PM: ​​
+12:02:47 PM:   In file "/opt/build/repo/VidEditMVPLP/netlify/functions/submission-created.js"
+12:02:47 PM:   Cannot find module 'googleapis'
+12:02:47 PM:   Require stack:
+12:02:47 PM:   - /opt/buildhome/node-deps/node_modules/@netlify/zip-it-and-ship-it/dist/runtimes/node/bundlers/zisi/resolve.js
+12:02:47 PM: ​
+12:02:47 PM:   Resolved config
+12:02:47 PM:   build:
+12:02:47 PM:     base: /opt/build/repo/VidEditMVPLP/client
+12:02:47 PM:     command: npm run build
+12:02:47 PM:     commandOrigin: config
+12:02:47 PM:     environment:
+12:02:47 PM:       - GOOGLE_SA
+12:02:47 PM:       - PAYPAL_BUSINESS_EMAIL
+12:02:47 PM:       - SHEET_ID
+12:02:47 PM:     publish: /opt/build/repo/VidEditMVPLP/client/dist
+12:02:47 PM:     publishOrigin: config
+12:02:47 PM:   functionsDirectory: /opt/build/repo/VidEditMVPLP/netlify/functions
+12:02:47 PM:   redirects:
+12:02:47 PM:     - from: /api/*
+      status: 200
+      to: /.netlify/functions/:splat
+    - from: /*
+      status: 200
+      to: /index.html
+  redirectsOrigin: config
+12:02:47 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+12:02:48 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+12:02:48 PM: Failing build: Failed to build site
+12:02:48 PM: Finished processing build request in 30.066s

@@ -1,0 +1,121 @@
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   === NVGO-ORDER-SUBMISSION FUNCTION TRIGGERED ===
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Event method: POST
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Event body: {"form_name":"nvgo-order","data":{"name":"test5","email":"test5@example.com","videoLength":"5 min","contentType":"other5","keyFeatures":"basic5","projectDetails":"this is a test 5","uploadLink":"http://example.com/videotest5"}}
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Parsed submission: {
+  "form_name": "nvgo-order",
+  "data": {
+    "name": "test5",
+    "email": "test5@example.com",
+    "videoLength": "5 min",
+    "contentType": "other5",
+    "keyFeatures": "basic5",
+    "projectDetails": "this is a test 5",
+    "uploadLink": "http://example.com/videotest5"
+  }
+}
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Form data: {
+  "name": "test5",
+  "email": "test5@example.com",
+  "videoLength": "5 min",
+  "contentType": "other5",
+  "keyFeatures": "basic5",
+  "projectDetails": "this is a test 5",
+  "uploadLink": "http://example.com/videotest5"
+}
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Form data extracted: { name: 'test5', email: 'test5@example.com', videoLength: '5 min' }
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Checking Google Sheets credentials...
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   GOOGLE_SA exists: true
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   SHEET_ID exists: true
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   SHEET_ID value: 1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Attempting to parse service account credentials...
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Service account parsed successfully
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Service account email: nvgo-service-692@nvgo-automation.iam.gserviceaccount.com
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Service account project_id: nvgo-automation
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Service account private_key_id: cd611c7967a81b46ca6734bbfa68c183a6cdfcd7
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Testing spreadsheet access...
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Setting up Google Sheets client...
+Jul 18, 05:30:19 PM: 2a8a4ea0 INFO   Testing basic spreadsheet access...
+Jul 18, 05:30:20 PM: 2a8a4ea0 ERROR  ❌ Failed to access spreadsheet metadata: The caller does not have permission
+Jul 18, 05:30:20 PM: 2a8a4ea0 ERROR  Google Sheets error details:
+Jul 18, 05:30:20 PM: 2a8a4ea0 ERROR  Error message: The caller does not have permission
+Jul 18, 05:30:20 PM: 2a8a4ea0 ERROR  Error code: 403
+Jul 18, 05:30:20 PM: 2a8a4ea0 ERROR  Full error: GaxiosError: The caller does not have permission
+    at Gaxios._request (/var/task/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async JWT.requestAsync (/var/task/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async exports.handler (/var/task/nvgo-order-submission.js:53:28) {
+  config: {
+    url: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0',
+    method: 'GET',
+    userAgentDirectives: [ [Object] ],
+    paramsSerializer: [Function (anonymous)],
+    headers: {
+      'x-goog-api-client': 'gdcl/7.2.0 gl-node/22.15.1',
+      'Accept-Encoding': 'gzip',
+      'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.'
+    },
+    params: {},
+    validateStatus: [Function (anonymous)],
+    retry: true,
+    responseType: 'unknown',
+    errorRedactor: [Function: defaultErrorRedactor],
+    retryConfig: {
+      currentRetryAttempt: 0,
+      retry: 3,
+      httpMethodsToRetry: [Array],
+      noResponseRetries: 2,
+      retryDelayMultiplier: 2,
+      timeOfFirstRequest: 1752885020436,
+      totalTimeout: 9007199254740991,
+      maxRetryDelay: 9007199254740991,
+      statusCodesToRetry: [Array]
+    }
+  },
+  response: {
+    config: {
+      url: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0',
+      method: 'GET',
+      userAgentDirectives: [Array],
+      paramsSerializer: [Function (anonymous)],
+      headers: [Object],
+      params: {},
+      validateStatus: [Function (anonymous)],
+      retry: true,
+      responseType: 'unknown',
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: { error: [Object] },
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-encoding': 'gzip',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Sat, 19 Jul 2025 00:30:20 GMT',
+      server: 'ESF',
+      'transfer-encoding': 'chunked',
+      vary: 'Origin, X-Origin, Referer',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-l2-request-path': 'l2-managed-6',
+      'x-xss-protection': '0'
+    },
+    status: 403,
+    statusText: 'Forbidden',
+    request: {
+      responseURL: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0'
+    }
+  },
+  error: undefined,
+  status: 403,
+  code: 403,
+  errors: [
+    {
+      message: 'The caller does not have permission',
+      domain: 'global',
+      reason: 'forbidden'
+    }
+  ],
+  [Symbol(gaxios-gaxios-error)]: '6.7.1'
+}
+Jul 18, 05:30:20 PM: 2a8a4ea0 INFO   Function completed successfully
+Jul 18, 05:30:20 PM: 2a8a4ea0 Duration: 715.38 ms	Memory Usage: 206 MB

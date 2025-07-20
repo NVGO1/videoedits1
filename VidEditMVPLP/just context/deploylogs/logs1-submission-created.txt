@@ -1,0 +1,284 @@
+Jul 18, 04:41:02 PM: be1179d3 : 16554757
+Jul 18, 04:41:02 PM: be1179d3         },
+Jul 18, 04:41:02 PM: be1179d3         {
+Jul 18, 04:41:02 PM: be1179d3           "n": "submitOrder",
+Jul 18, 04:41:02 PM: be1179d3           "d": "f8cde817e44e27a5c697b5b718e31af8ea241b4b7fee0265cf072b28af0b60da",
+Jul 18, 04:41:02 PM: be1179d3           "dn": null,
+Jul 18, 04:41:02 PM: be1179d3           "g": null,
+Jul 18, 04:41:02 PM: be1179d3           "bd": {
+Jul 18, 04:41:02 PM: be1179d3             "runtimeAPIVersion": 1
+Jul 18, 04:41:02 PM: be1179d3           },
+Jul 18, 04:41:02 PM: be1179d3           "p": 10,
+Jul 18, 04:41:02 PM: be1179d3           "id": "32be322730f7f8db566fd0cf3943c0d36f6bd6a16636bd5b8c0481ec4b405dba",
+Jul 18, 04:41:02 PM: be1179d3           "s": 16554609,
+Jul 18, 04:41:02 PM: be1179d3           "r": "nodejs22.x",
+Jul 18, 04:41:02 PM: be1179d3           "c": "2025-07-18T19:34:49.894Z",
+Jul 18, 04:41:02 PM: be1179d3           "a": "042287751506",
+Jul 18, 04:41:02 PM: be1179d3           "oid": "9f38c72322581c69a0e44242faf7ab573dc4ab62ab9ee924dffd78f3e13d23ab"
+Jul 18, 04:41:02 PM: be1179d3         }
+Jul 18, 04:41:02 PM: be1179d3       ],
+Jul 18, 04:41:02 PM: be1179d3       "screenshot_url": null,
+Jul 18, 04:41:02 PM: be1179d3       "committer": "NVGO1",
+Jul 18, 04:41:02 PM: be1179d3       "skipped_log": null,
+Jul 18, 04:41:02 PM: be1179d3       "manual_deploy": false,
+Jul 18, 04:41:02 PM: be1179d3       "plugin_state": "success",
+Jul 18, 04:41:02 PM: be1179d3       "lighthouse_plugin_scores": null,
+Jul 18, 04:41:02 PM: be1179d3       "links": {
+Jul 18, 04:41:02 PM: be1179d3         "permalink": "https://687ad735243a6d0008262491--nvgo.netlify.app",
+Jul 18, 04:41:02 PM: be1179d3         "alias": "https://letsnvgo.com",
+Jul 18, 04:41:02 PM: be1179d3         "branch": null
+Jul 18, 04:41:02 PM: be1179d3       },
+Jul 18, 04:41:02 PM: be1179d3       "framework": "vite",
+Jul 18, 04:41:02 PM: be1179d3       "entry_path": null,
+Jul 18, 04:41:02 PM: be1179d3       "views_count": null,
+Jul 18, 04:41:02 PM: be1179d3       "function_schedules": [],
+Jul 18, 04:41:02 PM: be1179d3       "public_repo": true,
+Jul 18, 04:41:02 PM: be1179d3       "pending_review_reason": null,
+Jul 18, 04:41:02 PM: be1179d3       "lighthouse": null,
+Jul 18, 04:41:02 PM: be1179d3       "edge_functions_present": null,
+Jul 18, 04:41:02 PM: be1179d3       "expires_at": null,
+Jul 18, 04:41:02 PM: be1179d3       "blobs_region": "us-east-2",
+Jul 18, 04:41:02 PM: be1179d3       "deploy_validations_report": null
+Jul 18, 04:41:02 PM: be1179d3     },
+Jul 18, 04:41:02 PM: be1179d3     "managed_dns": true,
+Jul 18, 04:41:02 PM: be1179d3     "jwt_secret": null,
+Jul 18, 04:41:02 PM: be1179d3     "jwt_roles_path": "app_metadata.authorization.roles",
+Jul 18, 04:41:02 PM: be1179d3     "account_id": "685c39ce22b8deb5b64a9c6f",
+Jul 18, 04:41:02 PM: be1179d3     "account_slug": "nvgo1",
+Jul 18, 04:41:02 PM: be1179d3     "account_name": "NVGO",
+Jul 18, 04:41:02 PM: be1179d3     "account_type": "Free",
+Jul 18, 04:41:02 PM: be1179d3     "capabilities": {
+Jul 18, 04:41:02 PM: be1179d3       "cdn_tier": "reg",
+Jul 18, 04:41:02 PM: be1179d3       "deploy_diagnostics": true,
+Jul 18, 04:41:02 PM: be1179d3       "dev_server_enabled": true,
+Jul 18, 04:41:02 PM: be1179d3       "functions": {
+Jul 18, 04:41:02 PM: be1179d3         "invocations": {
+Jul 18, 04:41:02 PM: be1179d3           "included": 125000,
+Jul 18, 04:41:02 PM: be1179d3           "unit": "requests"
+Jul 18, 04:41:02 PM: be1179d3         },
+Jul 18, 04:41:02 PM: be1179d3         "runtime": {
+Jul 18, 04:41:02 PM: be1179d3           "included": 360000,
+Jul 18, 04:41:02 PM: be1179d3           "unit": "seconds"
+Jul 18, 04:41:02 PM: be1179d3         }
+Jul 18, 04:41:02 PM: be1179d3       },
+Jul 18, 04:41:02 PM: be1179d3       "forms": {
+Jul 18, 04:41:02 PM: be1179d3         "submissions": {
+Jul 18, 04:41:02 PM: be1179d3           "included": 100,
+Jul 18, 04:41:02 PM: be1179d3           "unit": "submissions"
+Jul 18, 04:41:02 PM: be1179d3         },
+Jul 18, 04:41:02 PM: be1179d3         "storage": {
+Jul 18, 04:41:02 PM: be1179d3           "included": 10485760,
+Jul 18, 04:41:02 PM: be1179d3           "unit": "bytes"
+Jul 18, 04:41:02 PM: be1179d3         },
+Jul 18, 04:41:02 PM: be1179d3         "use_functions": true
+Jul 18, 04:41:02 PM: be1179d3       }
+Jul 18, 04:41:02 PM: be1179d3     },
+Jul 18, 04:41:02 PM: be1179d3     "dns_zone_id": null,
+Jul 18, 04:41:02 PM: be1179d3     "identity_instance_id": null,
+Jul 18, 04:41:02 PM: be1179d3     "primary_create_project": null,
+Jul 18, 04:41:02 PM: be1179d3     "use_functions": true,
+Jul 18, 04:41:02 PM: be1179d3     "use_edge_handlers": null,
+Jul 18, 04:41:02 PM: be1179d3     "use_forms": true,
+Jul 18, 04:41:02 PM: be1179d3     "parent_user_id": null,
+Jul 18, 04:41:02 PM: be1179d3     "automatic_tls_provisioning": null,
+Jul 18, 04:41:02 PM: be1179d3     "disabled": null,
+Jul 18, 04:41:02 PM: be1179d3     "disabled_reason": null,
+Jul 18, 04:41:02 PM: be1179d3     "lifecycle_state": "active",
+Jul 18, 04:41:02 PM: be1179d3     "id_domain": "c9bbcfc4-fbaa-419f-a278-8f6e9f5cdf5b.netlify.app",
+Jul 18, 04:41:02 PM: be1179d3     "use_lm": null,
+Jul 18, 04:41:02 PM: be1179d3     "build_image": "noble",
+Jul 18, 04:41:02 PM: be1179d3     "automatic_tls_provisioning_expired": false,
+Jul 18, 04:41:02 PM: be1179d3     "analytics_instance_id": null,
+Jul 18, 04:41:02 PM: be1179d3     "functions_region": "us-east-2",
+Jul 18, 04:41:02 PM: be1179d3     "functions_timeout": null,
+Jul 18, 04:41:02 PM: be1179d3     "plugins": [],
+Jul 18, 04:41:02 PM: be1179d3     "account_subdomain": null,
+Jul 18, 04:41:02 PM: be1179d3     "cdp_enabled_contexts": [
+Jul 18, 04:41:02 PM: be1179d3       "deploy-preview"
+Jul 18, 04:41:02 PM: be1179d3     ],
+Jul 18, 04:41:02 PM: be1179d3     "deploy_retention_in_days": 30,
+Jul 18, 04:41:02 PM: be1179d3     "build_timelimit": null,
+Jul 18, 04:41:02 PM: be1179d3     "password_context": "all",
+Jul 18, 04:41:02 PM: be1179d3     "hud_enabled": false,
+Jul 18, 04:41:02 PM: be1179d3     "labels": [],
+Jul 18, 04:41:02 PM: be1179d3     "traffic_rules_config_per_scope": {},
+Jul 18, 04:41:02 PM: be1179d3     "visual_editor_active": null,
+Jul 18, 04:41:02 PM: be1179d3     "description": null,
+Jul 18, 04:41:02 PM: be1179d3     "description_hidden": null,
+Jul 18, 04:41:02 PM: be1179d3     "dev_server_resources": null,
+Jul 18, 04:41:02 PM: be1179d3     "created_via": "",
+Jul 18, 04:41:02 PM: be1179d3     "deploy_origin": {},
+Jul 18, 04:41:02 PM: be1179d3     "session_id": null,
+Jul 18, 04:41:02 PM: be1179d3     "cover_url": null,
+Jul 18, 04:41:02 PM: be1179d3     "feature_flags": null,
+Jul 18, 04:41:02 PM: be1179d3     "versions": {
+Jul 18, 04:41:02 PM: be1179d3       "go": {
+Jul 18, 04:41:02 PM: be1179d3         "active": "1.19.x",
+Jul 18, 04:41:02 PM: be1179d3         "default": "1.19.x"
+Jul 18, 04:41:02 PM: be1179d3       },
+Jul 18, 04:41:02 PM: be1179d3       "node": {
+Jul 18, 04:41:02 PM: be1179d3         "active": "22",
+Jul 18, 04:41:02 PM: be1179d3         "default": "22"
+Jul 18, 04:41:02 PM: be1179d3       },
+Jul 18, 04:41:02 PM: be1179d3       "python": {
+Jul 18, 04:41:02 PM: be1179d3         "active": "3.13",
+Jul 18, 04:41:02 PM: be1179d3         "default": "3.13"
+Jul 18, 04:41:02 PM: be1179d3       },
+Jul 18, 04:41:02 PM: be1179d3       "ruby": {
+Jul 18, 04:41:02 PM: be1179d3         "active": "2.7.2",
+Jul 18, 04:41:02 PM: be1179d3         "default": "2.7.2"
+Jul 18, 04:41:02 PM: be1179d3       },
+Jul 18, 04:41:02 PM: be1179d3       "yarn": {
+Jul 18, 04:41:02 PM: be1179d3         "active": "1.22.19",
+Jul 18, 04:41:02 PM: be1179d3         "default": "1.22.19"
+Jul 18, 04:41:02 PM: be1179d3       }
+Jul 18, 04:41:02 PM: be1179d3     },
+Jul 18, 04:41:02 PM: be1179d3     "has_password": false,
+Jul 18, 04:41:02 PM: be1179d3     "default_domain": "nvgo.netlify.app",
+Jul 18, 04:41:02 PM: be1179d3     "use_envelope": true
+Jul 18, 04:41:02 PM: be1179d3   }
+Jul 18, 04:41:02 PM: be1179d3 }
+Jul 18, 04:41:02 PM: be1179d3 INFO   Not nvgo-order form, skipping. Form name: undefined
+Jul 18, 04:41:04 PM: be1179d3 Duration: 72.40 ms	Memory Usage: 202 MB	Init Duration: 1491.46 ms
+Jul 18, 04:49:07 PM: 5c9fff68 : 16554757
+Jul 18, 04:49:07 PM: 5c9fff68         },
+Jul 18, 04:49:07 PM: 5c9fff68         {
+Jul 18, 04:49:07 PM: 5c9fff68           "n": "submitOrder",
+Jul 18, 04:49:07 PM: 5c9fff68           "d": "f8cde817e44e27a5c697b5b718e31af8ea241b4b7fee0265cf072b28af0b60da",
+Jul 18, 04:49:07 PM: 5c9fff68           "dn": null,
+Jul 18, 04:49:07 PM: 5c9fff68           "g": null,
+Jul 18, 04:49:07 PM: 5c9fff68           "bd": {
+Jul 18, 04:49:07 PM: 5c9fff68             "runtimeAPIVersion": 1
+Jul 18, 04:49:07 PM: 5c9fff68           },
+Jul 18, 04:49:07 PM: 5c9fff68           "p": 10,
+Jul 18, 04:49:07 PM: 5c9fff68           "id": "32be322730f7f8db566fd0cf3943c0d36f6bd6a16636bd5b8c0481ec4b405dba",
+Jul 18, 04:49:07 PM: 5c9fff68           "s": 16554609,
+Jul 18, 04:49:07 PM: 5c9fff68           "r": "nodejs22.x",
+Jul 18, 04:49:07 PM: 5c9fff68           "c": "2025-07-18T19:34:49.894Z",
+Jul 18, 04:49:07 PM: 5c9fff68           "a": "042287751506",
+Jul 18, 04:49:07 PM: 5c9fff68           "oid": "9f38c72322581c69a0e44242faf7ab573dc4ab62ab9ee924dffd78f3e13d23ab"
+Jul 18, 04:49:07 PM: 5c9fff68         }
+Jul 18, 04:49:07 PM: 5c9fff68       ],
+Jul 18, 04:49:07 PM: 5c9fff68       "screenshot_url": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "committer": "NVGO1",
+Jul 18, 04:49:07 PM: 5c9fff68       "skipped_log": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "manual_deploy": false,
+Jul 18, 04:49:07 PM: 5c9fff68       "plugin_state": "success",
+Jul 18, 04:49:07 PM: 5c9fff68       "lighthouse_plugin_scores": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "links": {
+Jul 18, 04:49:07 PM: 5c9fff68         "permalink": "https://687ad735243a6d0008262491--nvgo.netlify.app",
+Jul 18, 04:49:07 PM: 5c9fff68         "alias": "https://letsnvgo.com",
+Jul 18, 04:49:07 PM: 5c9fff68         "branch": null
+Jul 18, 04:49:07 PM: 5c9fff68       },
+Jul 18, 04:49:07 PM: 5c9fff68       "framework": "vite",
+Jul 18, 04:49:07 PM: 5c9fff68       "entry_path": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "views_count": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "function_schedules": [],
+Jul 18, 04:49:07 PM: 5c9fff68       "public_repo": true,
+Jul 18, 04:49:07 PM: 5c9fff68       "pending_review_reason": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "lighthouse": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "edge_functions_present": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "expires_at": null,
+Jul 18, 04:49:07 PM: 5c9fff68       "blobs_region": "us-east-2",
+Jul 18, 04:49:07 PM: 5c9fff68       "deploy_validations_report": null
+Jul 18, 04:49:07 PM: 5c9fff68     },
+Jul 18, 04:49:07 PM: 5c9fff68     "managed_dns": true,
+Jul 18, 04:49:07 PM: 5c9fff68     "jwt_secret": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "jwt_roles_path": "app_metadata.authorization.roles",
+Jul 18, 04:49:07 PM: 5c9fff68     "account_id": "685c39ce22b8deb5b64a9c6f",
+Jul 18, 04:49:07 PM: 5c9fff68     "account_slug": "nvgo1",
+Jul 18, 04:49:07 PM: 5c9fff68     "account_name": "NVGO",
+Jul 18, 04:49:07 PM: 5c9fff68     "account_type": "Free",
+Jul 18, 04:49:07 PM: 5c9fff68     "capabilities": {
+Jul 18, 04:49:07 PM: 5c9fff68       "cdn_tier": "reg",
+Jul 18, 04:49:07 PM: 5c9fff68       "deploy_diagnostics": true,
+Jul 18, 04:49:07 PM: 5c9fff68       "dev_server_enabled": true,
+Jul 18, 04:49:07 PM: 5c9fff68       "functions": {
+Jul 18, 04:49:07 PM: 5c9fff68         "invocations": {
+Jul 18, 04:49:07 PM: 5c9fff68           "included": 125000,
+Jul 18, 04:49:07 PM: 5c9fff68           "unit": "requests"
+Jul 18, 04:49:07 PM: 5c9fff68         },
+Jul 18, 04:49:07 PM: 5c9fff68         "runtime": {
+Jul 18, 04:49:07 PM: 5c9fff68           "included": 360000,
+Jul 18, 04:49:07 PM: 5c9fff68           "unit": "seconds"
+Jul 18, 04:49:07 PM: 5c9fff68         }
+Jul 18, 04:49:07 PM: 5c9fff68       },
+Jul 18, 04:49:07 PM: 5c9fff68       "forms": {
+Jul 18, 04:49:07 PM: 5c9fff68         "submissions": {
+Jul 18, 04:49:07 PM: 5c9fff68           "included": 100,
+Jul 18, 04:49:07 PM: 5c9fff68           "unit": "submissions"
+Jul 18, 04:49:07 PM: 5c9fff68         },
+Jul 18, 04:49:07 PM: 5c9fff68         "storage": {
+Jul 18, 04:49:07 PM: 5c9fff68           "included": 10485760,
+Jul 18, 04:49:07 PM: 5c9fff68           "unit": "bytes"
+Jul 18, 04:49:07 PM: 5c9fff68         },
+Jul 18, 04:49:07 PM: 5c9fff68         "use_functions": true
+Jul 18, 04:49:07 PM: 5c9fff68       }
+Jul 18, 04:49:07 PM: 5c9fff68     },
+Jul 18, 04:49:07 PM: 5c9fff68     "dns_zone_id": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "identity_instance_id": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "primary_create_project": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "use_functions": true,
+Jul 18, 04:49:07 PM: 5c9fff68     "use_edge_handlers": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "use_forms": true,
+Jul 18, 04:49:07 PM: 5c9fff68     "parent_user_id": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "automatic_tls_provisioning": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "disabled": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "disabled_reason": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "lifecycle_state": "active",
+Jul 18, 04:49:07 PM: 5c9fff68     "id_domain": "c9bbcfc4-fbaa-419f-a278-8f6e9f5cdf5b.netlify.app",
+Jul 18, 04:49:07 PM: 5c9fff68     "use_lm": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "build_image": "noble",
+Jul 18, 04:49:07 PM: 5c9fff68     "automatic_tls_provisioning_expired": false,
+Jul 18, 04:49:07 PM: 5c9fff68     "analytics_instance_id": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "functions_region": "us-east-2",
+Jul 18, 04:49:07 PM: 5c9fff68     "functions_timeout": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "plugins": [],
+Jul 18, 04:49:07 PM: 5c9fff68     "account_subdomain": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "cdp_enabled_contexts": [
+Jul 18, 04:49:07 PM: 5c9fff68       "deploy-preview"
+Jul 18, 04:49:07 PM: 5c9fff68     ],
+Jul 18, 04:49:07 PM: 5c9fff68     "deploy_retention_in_days": 30,
+Jul 18, 04:49:07 PM: 5c9fff68     "build_timelimit": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "password_context": "all",
+Jul 18, 04:49:07 PM: 5c9fff68     "hud_enabled": false,
+Jul 18, 04:49:07 PM: 5c9fff68     "labels": [],
+Jul 18, 04:49:07 PM: 5c9fff68     "traffic_rules_config_per_scope": {},
+Jul 18, 04:49:07 PM: 5c9fff68     "visual_editor_active": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "description": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "description_hidden": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "dev_server_resources": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "created_via": "",
+Jul 18, 04:49:07 PM: 5c9fff68     "deploy_origin": {},
+Jul 18, 04:49:07 PM: 5c9fff68     "session_id": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "cover_url": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "feature_flags": null,
+Jul 18, 04:49:07 PM: 5c9fff68     "versions": {
+Jul 18, 04:49:07 PM: 5c9fff68       "go": {
+Jul 18, 04:49:07 PM: 5c9fff68         "active": "1.19.x",
+Jul 18, 04:49:07 PM: 5c9fff68         "default": "1.19.x"
+Jul 18, 04:49:07 PM: 5c9fff68       },
+Jul 18, 04:49:07 PM: 5c9fff68       "node": {
+Jul 18, 04:49:07 PM: 5c9fff68         "active": "22",
+Jul 18, 04:49:07 PM: 5c9fff68         "default": "22"
+Jul 18, 04:49:07 PM: 5c9fff68       },
+Jul 18, 04:49:07 PM: 5c9fff68       "python": {
+Jul 18, 04:49:07 PM: 5c9fff68         "active": "3.13",
+Jul 18, 04:49:07 PM: 5c9fff68         "default": "3.13"
+Jul 18, 04:49:07 PM: 5c9fff68       },
+Jul 18, 04:49:07 PM: 5c9fff68       "ruby": {
+Jul 18, 04:49:07 PM: 5c9fff68         "active": "2.7.2",
+Jul 18, 04:49:07 PM: 5c9fff68         "default": "2.7.2"
+Jul 18, 04:49:07 PM: 5c9fff68       },
+Jul 18, 04:49:07 PM: 5c9fff68       "yarn": {
+Jul 18, 04:49:07 PM: 5c9fff68         "active": "1.22.19",
+Jul 18, 04:49:07 PM: 5c9fff68         "default": "1.22.19"
+Jul 18, 04:49:07 PM: 5c9fff68       }
+Jul 18, 04:49:07 PM: 5c9fff68     },
+Jul 18, 04:49:07 PM: 5c9fff68     "has_password": false,
+Jul 18, 04:49:07 PM: 5c9fff68     "default_domain": "nvgo.netlify.app",
+Jul 18, 04:49:07 PM: 5c9fff68     "use_envelope": true
+Jul 18, 04:49:07 PM: 5c9fff68   }
+Jul 18, 04:49:07 PM: 5c9fff68 }
+Jul 18, 04:49:07 PM: 5c9fff68 INFO   Not nvgo-order form, skipping. Form name: undefined
+Jul 18, 04:49:09 PM: 5c9fff68 Duration: 38.41 ms	Memory Usage: 199 MB	Init Duration: 1516.88 ms

@@ -1,0 +1,179 @@
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR  Google Sheets error details:
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR  Error message: The caller does not have permission
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR  Error code: 403
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR  Full error: GaxiosError: The caller does not have permission
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      at Gaxios._request (/var/task/node_modules/gaxios/build/src/gaxios.js:142:23)
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      at async JWT.requestAsync (/var/task/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      at async exports.handler (/var/task/nvgo-order-submission.js:58:24) {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    config: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      url: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0/values/Responses%21A%3AI:append?valueInputOption=RAW',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      method: 'POST',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      userAgentDirectives: [ [Object] ],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      paramsSerializer: [Function (anonymous)],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      data: { values: [Array] },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      headers: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'x-goog-api-client': 'gdcl/7.2.0 gl-node/22.15.1',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'Accept-Encoding': 'gzip',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'Content-Type': 'application/json'
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      params: { valueInputOption: 'RAW' },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      validateStatus: [Function (anonymous)],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      retry: true,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      body: '{"values":[["2025-07-18T23:41:03.988Z","test3","test3@example.com","5 min","test video","captions","test video project","http://example.com/video example","Payment Pending"]]}',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      responseType: 'unknown',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      errorRedactor: [Function: defaultErrorRedactor],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      retryConfig: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        currentRetryAttempt: 0,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        retry: 3,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        httpMethodsToRetry: [Array],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        noResponseRetries: 2,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        retryDelayMultiplier: 2,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        timeOfFirstRequest: 1752882064753,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        totalTimeout: 9007199254740991,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        maxRetryDelay: 9007199254740991,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        statusCodesToRetry: [Array]
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      }
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    response: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      config: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        url: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0/values/Responses%21A%3AI:append?valueInputOption=RAW',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        method: 'POST',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        userAgentDirectives: [Array],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        paramsSerializer: [Function (anonymous)],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        data: [Object],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        headers: [Object],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        params: [Object],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        validateStatus: [Function (anonymous)],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        retry: true,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        body: '{"values":[["2025-07-18T23:41:03.988Z","test3","test3@example.com","5 min","test video","captions","test video project","http://example.com/video example","Payment Pending"]]}',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        responseType: 'unknown',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        errorRedactor: [Function: defaultErrorRedactor]
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      data: { error: [Object] },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      headers: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'content-encoding': 'gzip',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'content-type': 'application/json; charset=UTF-8',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        date: 'Fri, 18 Jul 2025 23:41:04 GMT',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        server: 'ESF',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'transfer-encoding': 'chunked',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        vary: 'Origin, X-Origin, Referer',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'x-content-type-options': 'nosniff',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'x-frame-options': 'SAMEORIGIN',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'x-l2-request-path': 'l2-managed-6',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        'x-xss-protection': '0'
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      status: 403,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      statusText: 'Forbidden',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      request: {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        responseURL: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0/values/Responses%21A%3AI:append?valueInputOption=RAW'
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      }
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    },
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    error: undefined,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    status: 403,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    code: 403,
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    errors: [
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      {
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        message: 'The caller does not have permission',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        domain: 'global',
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR        reason: 'forbidden'
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR      }
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    ],
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR    [Symbol(gaxios-gaxios-error)]: '6.7.1'
+Jul 18, 04:41:02 PM: d1d8e5d9 ERROR  }
+Jul 18, 04:41:02 PM: d1d8e5d9 INFO   Function completed successfully
+Jul 18, 04:41:04 PM: d1d8e5d9 Duration: 807.38 ms	Memory Usage: 206 MB	Init Duration: 1497.64 ms
+Jul 18, 04:49:07 PM: 2e7edc2a ,
+Jul 18, 04:49:07 PM: 2e7edc2a   'Payment Pending'
+Jul 18, 04:49:07 PM: 2e7edc2a ]
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR  Google Sheets error details:
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR  Error message: The caller does not have permission
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR  Error code: 403
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR  Full error: GaxiosError: The caller does not have permission
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      at Gaxios._request (/var/task/node_modules/gaxios/build/src/gaxios.js:142:23)
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      at async JWT.requestAsync (/var/task/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      at async exports.handler (/var/task/nvgo-order-submission.js:58:24) {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    config: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      url: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0/values/Responses%21A%3AI:append?valueInputOption=RAW',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      method: 'POST',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      userAgentDirectives: [ [Object] ],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      paramsSerializer: [Function (anonymous)],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      data: { values: [Array] },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      headers: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'x-goog-api-client': 'gdcl/7.2.0 gl-node/22.15.1',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'Accept-Encoding': 'gzip',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'Content-Type': 'application/json'
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      params: { valueInputOption: 'RAW' },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      validateStatus: [Function (anonymous)],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      retry: true,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      body: '{"values":[["2025-07-18T23:49:08.942Z","test4","test4@example.com","5 min","other4","basic","this is a test 4","http://example.com/videotest4","Payment Pending"]]}',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      responseType: 'unknown',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      errorRedactor: [Function: defaultErrorRedactor],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      retryConfig: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        currentRetryAttempt: 0,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        retry: 3,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        httpMethodsToRetry: [Array],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        noResponseRetries: 2,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        retryDelayMultiplier: 2,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        timeOfFirstRequest: 1752882549611,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        totalTimeout: 9007199254740991,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        maxRetryDelay: 9007199254740991,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        statusCodesToRetry: [Array]
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      }
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    response: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      config: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        url: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0/values/Responses%21A%3AI:append?valueInputOption=RAW',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        method: 'POST',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        userAgentDirectives: [Array],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        paramsSerializer: [Function (anonymous)],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        data: [Object],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        headers: [Object],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        params: [Object],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        validateStatus: [Function (anonymous)],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        retry: true,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        body: '{"values":[["2025-07-18T23:49:08.942Z","test4","test4@example.com","5 min","other4","basic","this is a test 4","http://example.com/videotest4","Payment Pending"]]}',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        responseType: 'unknown',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        errorRedactor: [Function: defaultErrorRedactor]
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      data: { error: [Object] },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      headers: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'content-encoding': 'gzip',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'content-type': 'application/json; charset=UTF-8',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        date: 'Fri, 18 Jul 2025 23:49:09 GMT',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        server: 'ESF',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'transfer-encoding': 'chunked',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        vary: 'Origin, X-Origin, Referer',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'x-content-type-options': 'nosniff',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'x-frame-options': 'SAMEORIGIN',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'x-l2-request-path': 'l2-managed-6',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        'x-xss-protection': '0'
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      status: 403,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      statusText: 'Forbidden',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      request: {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        responseURL: 'https://sheets.googleapis.com/v4/spreadsheets/1rDTPQcy7IiGpRUXKPCVwf9cxmVJyEy4877Fq1ulbCn0/values/Responses%21A%3AI:append?valueInputOption=RAW'
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      }
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    },
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    error: undefined,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    status: 403,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    code: 403,
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    errors: [
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      {
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        message: 'The caller does not have permission',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        domain: 'global',
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR        reason: 'forbidden'
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR      }
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    ],
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR    [Symbol(gaxios-gaxios-error)]: '6.7.1'
+Jul 18, 04:49:07 PM: 2e7edc2a ERROR  }
+Jul 18, 04:49:07 PM: 2e7edc2a INFO   Function completed successfully
+Jul 18, 04:49:09 PM: 2e7edc2a Duration: 695.06 ms	Memory Usage: 207 MB	Init Duration: 1530.01 ms

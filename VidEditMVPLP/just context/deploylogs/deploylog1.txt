@@ -1,0 +1,140 @@
+1:16:56 AM: build-image version: bbc21dac11d2294a9d0d8a7cf18850f179f7f76b (noble)
+1:16:56 AM: buildbot version: bbc21dac11d2294a9d0d8a7cf18850f179f7f76b
+1:16:56 AM: Fetching cached dependencies
+1:16:56 AM: Starting to download cache of 392.8MB (Last modified: 2025-07-18 00:21:46 +0000 UTC)
+1:16:58 AM: Finished downloading cache in 1.293s
+1:16:58 AM: Starting to extract cache
+1:17:03 AM: Finished extracting cache in 5.632s
+1:17:03 AM: Finished fetching cache in 6.991s
+1:17:03 AM: Starting to prepare the repo for build
+1:17:04 AM: Preparing Git Reference refs/heads/main
+1:17:05 AM: Custom publish path detected. Proceeding with the specified path: 'VidEditMVPLP/client/dist'
+1:17:05 AM: Starting to install dependencies
+1:17:05 AM: Started restoring cached python cache
+1:17:05 AM: Finished restoring cached python cache
+1:17:05 AM: Started restoring cached ruby cache
+1:17:06 AM: Finished restoring cached ruby cache
+1:17:06 AM: Started restoring cached go cache
+1:17:06 AM: Finished restoring cached go cache
+1:17:06 AM: Using PHP version
+1:17:07 AM: Started restoring cached Node.js version
+1:17:07 AM: Finished restoring cached Node.js version
+1:17:07 AM: v22.17.1 is already installed.
+1:17:07 AM: Now using node v22.17.1 (npm v10.9.2)
+1:17:08 AM: Enabling Node.js Corepack
+1:17:08 AM: Started restoring cached build plugins
+1:17:08 AM: Finished restoring cached build plugins
+1:17:08 AM: Started restoring cached corepack dependencies
+1:17:08 AM: Finished restoring cached corepack dependencies
+1:17:08 AM: No npm workspaces detected
+1:17:08 AM: Started restoring cached node modules
+1:17:08 AM: Finished restoring cached node modules
+1:17:08 AM: Installing npm packages using npm version 10.9.2
+1:17:08 AM: up to date in 498ms
+1:17:08 AM: npm packages installed
+1:17:09 AM: Successfully installed dependencies
+1:17:09 AM: Starting build script
+1:17:09 AM: Detected 1 framework(s)
+1:17:09 AM: "vite" at version "6.3.5"
+1:17:09 AM: Section completed: initializing
+1:17:11 AM: ​
+1:17:11 AM: Netlify Build                                                 
+1:17:11 AM: ────────────────────────────────────────────────────────────────
+1:17:11 AM: ​
+1:17:11 AM: ❯ Version
+1:17:11 AM:   @netlify/build 34.2.5
+1:17:11 AM: ​
+1:17:11 AM: ❯ Flags
+1:17:11 AM:   accountId: 685c39ce22b8deb5b64a9c6f
+1:17:11 AM:   baseRelDir: true
+1:17:11 AM:   buildId: 687a02f79dc6ff97bc859d43
+1:17:11 AM:   deployId: 687a02f79dc6ff97bc859d45
+1:17:11 AM: ​
+1:17:11 AM: ❯ Current directory
+1:17:11 AM:   /opt/build/repo/VidEditMVPLP/client
+1:17:11 AM: ​
+1:17:11 AM: ❯ Config file
+1:17:11 AM:   No config file was defined: using default values.
+1:17:11 AM: ​
+1:17:11 AM: ❯ Context
+1:17:11 AM:   production
+1:17:11 AM: ​
+1:17:11 AM: Build command from Netlify app                                
+1:17:11 AM: ────────────────────────────────────────────────────────────────
+1:17:11 AM: ​
+1:17:11 AM: $ npm run build
+1:17:11 AM: > vite_client@0.0.0 build
+1:17:11 AM: > vite build
+1:17:11 AM: vite v6.3.5 building for production...
+1:17:12 AM: transforming...
+1:17:14 AM: ✓ 1695 modules transformed.
+1:17:14 AM: rendering chunks...
+1:17:14 AM: computing gzip size...
+1:17:14 AM: dist/index.html                   0.61 kB │ gzip:   0.38 kB
+1:17:14 AM: dist/assets/index-8R6sXh1l.css   76.34 kB │ gzip:  12.42 kB
+1:17:14 AM: dist/assets/index-DFhaX_R7.js   365.62 kB │ gzip: 116.46 kB
+1:17:14 AM: ✓ built in 2.97s
+1:17:14 AM: ​
+1:17:14 AM: (build.command completed in 3.4s)
+1:17:14 AM: ​
+1:17:14 AM: Deploy site                                                   
+1:17:14 AM: ────────────────────────────────────────────────────────────────
+1:17:14 AM: ​
+1:17:14 AM: Starting to deploy site from 'VidEditMVPLP/client/dist'
+1:17:14 AM: Calculating files to upload
+1:17:15 AM: Starting post processing
+1:17:15 AM: Post processing - Forms
+1:17:15 AM: Processing form - nvgo-order
+1:17:15 AM: Detected form fields:
+ - name
+ - email
+ - videoLength
+ - contentType
+ - keyFeatures
+ - projectDetails
+ - footage
+ - uploadLink
+1:17:15 AM: Post processing - header rules
+1:17:15 AM: Post processing - redirect rules
+1:17:15 AM: Post processing done
+1:17:15 AM: Section completed: postprocessing
+1:17:15 AM: Site is live ✨
+1:17:15 AM: 0 new file(s) to upload
+1:17:15 AM: 0 new function(s) to upload
+1:17:15 AM: Section completed: deploying
+1:17:15 AM: Site deploy was successfully initiated
+1:17:15 AM: ​
+1:17:15 AM: (Deploy site completed in 113ms)
+1:17:15 AM: ​
+1:17:15 AM: Netlify Build Complete                                        
+1:17:15 AM: ────────────────────────────────────────────────────────────────
+1:17:15 AM: ​
+1:17:15 AM: (Netlify Build completed in 3.7s)
+1:17:15 AM: Caching artifacts
+1:17:15 AM: Started saving node modules
+1:17:15 AM: Finished saving node modules
+1:17:15 AM: Started saving build plugins
+1:17:15 AM: Finished saving build plugins
+1:17:15 AM: Started saving bun cache
+1:17:15 AM: Finished saving bun cache
+1:17:15 AM: Started saving go cache
+1:17:15 AM: Finished saving go cache
+1:17:15 AM: Started saving python cache
+1:17:15 AM: Finished saving python cache
+1:17:15 AM: Started saving ruby cache
+1:17:15 AM: Finished saving ruby cache
+1:17:15 AM: Started saving corepack cache
+1:17:15 AM: Finished saving corepack cache
+1:17:15 AM: Started saving emacs cask dependencies
+1:17:15 AM: Finished saving emacs cask dependencies
+1:17:15 AM: Started saving maven dependencies
+1:17:15 AM: Finished saving maven dependencies
+1:17:15 AM: Started saving boot dependencies
+1:17:15 AM: Finished saving boot dependencies
+1:17:15 AM: Started saving rust rustup cache
+1:17:15 AM: Finished saving rust rustup cache
+1:17:15 AM: Build script success
+1:17:15 AM: Section completed: building
+1:17:22 AM: Uploading Cache of size 392.8MB
+1:17:23 AM: Section completed: cleanup
+1:17:23 AM: Finished processing build request in 26.474s
