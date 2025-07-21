@@ -453,24 +453,27 @@ const CustomForm: React.FC = () => {
           style={{ 
             width: '100%',
             padding: '16px 24px', 
-            backgroundColor: isSubmitting ? '#94a3b8' : '#007cba', 
-            color: 'white', 
+            background: isSubmitting ? '#94a3b8' : 'linear-gradient(to right, #facc15, #f97316)', 
+            color: isSubmitting ? 'white' : '#000000', 
             border: 'none', 
-            borderRadius: '8px',
+            borderRadius: '9999px', // Rounded-full like the hero button
             fontSize: '18px',
             fontWeight: '600',
             cursor: isSubmitting ? 'not-allowed' : 'pointer',
-            transition: 'background-color 0.2s ease',
-            marginTop: '10px'
+            transition: 'all 0.3s ease, transform 0.3s ease',
+            marginTop: '10px',
+            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
           }}
           onMouseOver={(e) => {
             if (!isSubmitting) {
-              e.currentTarget.style.backgroundColor = '#0056b3';
+              e.currentTarget.style.background = 'linear-gradient(to right, #eab308, #ea580c)';
+              e.currentTarget.style.transform = 'scale(1.02)';
             }
           }}
           onMouseOut={(e) => {
             if (!isSubmitting) {
-              e.currentTarget.style.backgroundColor = '#007cba';
+              e.currentTarget.style.background = 'linear-gradient(to right, #facc15, #f97316)';
+              e.currentTarget.style.transform = 'scale(1)';
             }
           }}
         >
