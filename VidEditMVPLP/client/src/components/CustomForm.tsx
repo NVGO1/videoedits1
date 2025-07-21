@@ -21,6 +21,7 @@ const CustomForm: React.FC = () => {
     uploadLink: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -28,10 +29,45 @@ const CustomForm: React.FC = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: {[key: string]: string} = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.videoLength) {
+      newErrors.videoLength = 'Please select a video length';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form before submitting
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
@@ -127,6 +163,14 @@ const CustomForm: React.FC = () => {
     marginTop: '4px'
   };
 
+  const errorStyle = {
+    color: '#dc2626', // Red color for errors
+    fontSize: '12px',
+    display: 'block' as const,
+    marginTop: '4px',
+    fontWeight: '500'
+  };
+
   return (
     <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
       <h2 style={{ color: 'inherit', marginBottom: '30px', textAlign: 'center' }}>
@@ -156,9 +200,11 @@ const CustomForm: React.FC = () => {
             required 
             style={{
               ...inputStyle,
+              borderColor: errors.name ? '#dc2626' : '#d1d5db',
               ':focus': { borderColor: '#007cba', outline: 'none' }
             }}
           />
+          {errors.name && <span style={errorStyle}>{errors.name}</span>}
         </div>
 
         <div style={containerStyle}>
@@ -170,8 +216,12 @@ const CustomForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required 
-            style={inputStyle}
+            style={{
+              ...inputStyle,
+              borderColor: errors.email ? '#dc2626' : '#d1d5db'
+            }}
           />
+          {errors.email && <span style={errorStyle}>{errors.email}</span>}
         </div>
 
         <div style={containerStyle}>
@@ -184,6 +234,7 @@ const CustomForm: React.FC = () => {
             required
             style={{
               ...inputStyle,
+              borderColor: errors.videoLength ? '#dc2626' : '#d1d5db',
               cursor: 'pointer'
             }}
           >
@@ -192,6 +243,7 @@ const CustomForm: React.FC = () => {
             <option value="10 min" style={{ color: '#333' }}>10 min ($120)</option>
             <option value="15 min" style={{ color: '#333' }}>15 min ($150)</option>
           </select>
+          {errors.videoLength && <span style={errorStyle}>{errors.videoLength}</span>}
         </div>
 
         <div style={containerStyle}>
