@@ -5,9 +5,10 @@ interface FormData {
   email: string;
   videoLength: string;
   contentType: string;
-  keyFeatures: string;
+  keyFeatures: string[];
   projectDetails: string;
   uploadLink: string;
+  footage: File | null;
 }
 
 const CustomForm: React.FC = () => {
@@ -16,9 +17,10 @@ const CustomForm: React.FC = () => {
     email: '',
     videoLength: '',
     contentType: '',
-    keyFeatures: '',
+    keyFeatures: [],
     projectDetails: '',
-    uploadLink: ''
+    uploadLink: '',
+    footage: null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
@@ -39,6 +41,65 @@ const CustomForm: React.FC = () => {
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData(prev => ({
+      ...prev,
+      footage: file
+    }));
+    
+    // Clear errors when file is selected
+    if (errors.footage || errors.uploadLink) {
+      setErrors(prev => ({
+        ...prev,
+        footage: '',
+        uploadLink: ''
+      }));
+    }
+  };
+
+  const handleCheckboxChange = (feature: string) => {
+    setFormData(prev => {
+      let newFeatures = [...prev.keyFeatures];
+      
+      if (feature === 'All') {
+        // If "All" is selected, select all options or deselect all
+        if (newFeatures.includes('All')) {
+          newFeatures = [];
+        } else {
+          newFeatures = ['Captions', 'Motion Graphics', 'Color Grading', 'All'];
+        }
+      } else {
+        // Handle individual selections
+        if (newFeatures.includes(feature)) {
+          newFeatures = newFeatures.filter(f => f !== feature);
+          // Remove "All" if it was selected and we're deselecting something
+          newFeatures = newFeatures.filter(f => f !== 'All');
+        } else {
+          newFeatures.push(feature);
+          // Check if all individual options are selected, then add "All"
+          const individualOptions = ['Captions', 'Motion Graphics', 'Color Grading'];
+          if (individualOptions.every(option => newFeatures.includes(option))) {
+            newFeatures.push('All');
+          }
+        }
+      }
+      
+      return {
+        ...prev,
+        keyFeatures: newFeatures
+      };
+    });
+    
+    // Clear error when user selects features
+    if (errors.keyFeatures) {
+      setErrors(prev => ({
+        ...prev,
+        keyFeatures: ''
+      }));
+    }
+  };
+
   const validateForm = (): boolean => {
     const newErrors: {[key: string]: string} = {};
     
@@ -54,6 +115,24 @@ const CustomForm: React.FC = () => {
     
     if (!formData.videoLength) {
       newErrors.videoLength = 'Please select a video length';
+    }
+    
+    if (!formData.contentType) {
+      newErrors.contentType = 'Please select a content type';
+    }
+    
+    if (formData.keyFeatures.length === 0) {
+      newErrors.keyFeatures = 'Please select at least one key feature';
+    }
+    
+    if (!formData.projectDetails.trim()) {
+      newErrors.projectDetails = 'Project details are required';
+    }
+    
+    // Either footage file OR upload link is required
+    if (!formData.footage && !formData.uploadLink.trim()) {
+      newErrors.footage = 'Please either upload a file or provide an upload link';
+      newErrors.uploadLink = 'Please either upload a file or provide an upload link';
     }
     
     setErrors(newErrors);
@@ -108,7 +187,7 @@ const CustomForm: React.FC = () => {
             email: formData.email,
             videoLength: formData.videoLength,
             contentType: formData.contentType,
-            keyFeatures: formData.keyFeatures,
+            keyFeatures: formData.keyFeatures.join(', '),
             projectDetails: formData.projectDetails,
             uploadLink: formData.uploadLink
           }
@@ -188,6 +267,8 @@ const CustomForm: React.FC = () => {
         <input type="hidden" name="form-name" value="nvgo-order" />
         {/* Honeypot field for spam protection */}
         <input type="hidden" name="bot-field" />
+        {/* Hidden field for keyFeatures to submit to Netlify */}
+        <input type="hidden" name="keyFeatures" value={formData.keyFeatures.join(', ')} />
         
         <div style={containerStyle}>
           <label htmlFor="name" style={labelStyle}>Name *</label>
@@ -200,8 +281,7 @@ const CustomForm: React.FC = () => {
             required 
             style={{
               ...inputStyle,
-              borderColor: errors.name ? '#dc2626' : '#d1d5db',
-              ':focus': { borderColor: '#007cba', outline: 'none' }
+              borderColor: errors.name ? '#dc2626' : '#d1d5db'
             }}
           />
           {errors.name && <span style={errorStyle}>{errors.name}</span>}
@@ -247,57 +327,96 @@ const CustomForm: React.FC = () => {
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="contentType" style={labelStyle}>Content Type</label>
-          <input 
-            type="text" 
-            id="contentType"
-            name="contentType" 
-            value={formData.contentType}
-            onChange={handleChange}
-            placeholder="e.g., Tutorial, Vlog, Product Demo"
-            style={inputStyle}
-          />
+          <label style={labelStyle}>Content Type *</label>
+          <div style={{ marginTop: '8px' }}>
+            {['Gaming', 'Tutorial', 'Vlog', 'Other'].map((type) => (
+              <label key={type} style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                marginBottom: '8px',
+                cursor: 'pointer',
+                fontSize: '14px'
+              }}>
+                <input
+                  type="radio"
+                  name="contentType"
+                  value={type}
+                  checked={formData.contentType === type}
+                  onChange={handleChange}
+                  style={{
+                    marginRight: '8px',
+                    width: '16px',
+                    height: '16px',
+                    cursor: 'pointer'
+                  }}
+                />
+                {type}
+              </label>
+            ))}
+          </div>
+          {errors.contentType && <span style={errorStyle}>{errors.contentType}</span>}
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="keyFeatures" style={labelStyle}>Key Features Needed</label>
-          <input 
-            type="text" 
-            id="keyFeatures"
-            name="keyFeatures" 
-            value={formData.keyFeatures}
-            onChange={handleChange}
-            placeholder="e.g., Transitions, Text overlays, Music"
-            style={inputStyle}
-          />
+          <label style={labelStyle}>Key Features Needed *</label>
+          <div style={{ marginTop: '8px' }}>
+            {['Captions', 'Motion Graphics', 'Color Grading', 'All'].map((feature) => (
+              <label key={feature} style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                marginBottom: '8px',
+                cursor: 'pointer',
+                fontSize: '14px'
+              }}>
+                <input
+                  type="checkbox"
+                  checked={formData.keyFeatures.includes(feature)}
+                  onChange={() => handleCheckboxChange(feature)}
+                  style={{
+                    marginRight: '8px',
+                    width: '16px',
+                    height: '16px',
+                    cursor: 'pointer'
+                  }}
+                />
+                {feature}
+              </label>
+            ))}
+          </div>
+          {errors.keyFeatures && <span style={errorStyle}>{errors.keyFeatures}</span>}
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="projectDetails" style={labelStyle}>Project Details</label>
+          <label htmlFor="projectDetails" style={labelStyle}>Project Details *</label>
           <textarea 
             id="projectDetails"
             name="projectDetails" 
             value={formData.projectDetails}
             onChange={handleChange}
+            required
             placeholder="Describe your vision, style preferences, target audience, etc."
             rows={4}
             style={{
               ...inputStyle,
+              borderColor: errors.projectDetails ? '#dc2626' : '#d1d5db',
               resize: 'vertical',
               minHeight: '100px'
             }}
           />
+          {errors.projectDetails && <span style={errorStyle}>{errors.projectDetails}</span>}
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="footage" style={labelStyle}>Upload Footage (Max 100MB)</label>
+          <label htmlFor="footage" style={labelStyle}>Upload Footage (Max 100MB) *</label>
           <input 
             type="file" 
             id="footage"
             name="footage" 
             accept="video/*"
+            onChange={handleFileChange}
             style={{
               ...inputStyle,
+              borderColor: errors.footage ? '#dc2626' : '#d1d5db',
               paddingTop: '8px',
               paddingBottom: '8px'
             }}
@@ -305,10 +424,11 @@ const CustomForm: React.FC = () => {
           <small style={smallTextStyle}>
             For files larger than 100MB, use the link field below
           </small>
+          {errors.footage && <span style={errorStyle}>{errors.footage}</span>}
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="uploadLink" style={labelStyle}>Or Paste Upload Link</label>
+          <label htmlFor="uploadLink" style={labelStyle}>Or Paste Upload Link *</label>
           <input 
             type="url" 
             id="uploadLink"
@@ -316,11 +436,15 @@ const CustomForm: React.FC = () => {
             value={formData.uploadLink}
             onChange={handleChange}
             placeholder="WeTransfer, Google Drive, Dropbox link, etc."
-            style={inputStyle}
+            style={{
+              ...inputStyle,
+              borderColor: errors.uploadLink ? '#dc2626' : '#d1d5db'
+            }}
           />
           <small style={smallTextStyle}>
             Or email large files to support@letsnvgo.com with your name and email
           </small>
+          {errors.uploadLink && <span style={errorStyle}>{errors.uploadLink}</span>}
         </div>
 
         <button 
