@@ -33,7 +33,7 @@ export const getTestimonials = () => {
         testimonials: [
           {
             name: 'Alex G.',
-            review: 'Amazing 24-hour turnaround! My gaming videos look incredible now.',
+            review: 'Amazing 36-hour turnaround! My gaming videos look incredible now.',
             rating: 5,
             avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
           },
@@ -81,7 +81,7 @@ export const getPricingPlans = () => {
             features: [
               'Basic editing',
               '1 revision included',
-              '24-hour delivery',
+              '36-hour delivery',
               'Color correction'
             ]
           },
@@ -95,7 +95,7 @@ export const getPricingPlans = () => {
               'Motion graphics',
               'Color grading',
               '1 revision included',
-              '24-hour delivery',
+              '36-hour delivery',
               'Professional captions'
             ]
           },
@@ -110,7 +110,7 @@ export const getPricingPlans = () => {
               'Color grading',
               'Custom intro/outro',
               '1 revision included',
-              '24-hour delivery',
+              '36-hour delivery',
               'Professional captions'
             ]
           }

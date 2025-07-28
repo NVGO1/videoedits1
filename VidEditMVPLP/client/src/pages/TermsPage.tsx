@@ -70,7 +70,7 @@ export function TermsPage() {
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">4. Delivery and Revisions</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                We guarantee delivery within 24 hours of receiving your raw footage and project requirements. Each package includes one (1) free revision. Additional revisions may be subject to additional charges.
+                We guarantee delivery within 36 hours of receiving your raw footage and project requirements. Each package includes one (1) free revision. Additional revisions may be subject to additional charges.
               </p>
             </section>
 

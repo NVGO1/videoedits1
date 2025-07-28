@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 const faqs = [
   {
     question: 'How long does the editing process take?',
-    answer: 'We guarantee a 24-hour turnaround for all our editing services. Most projects are completed within 12-18 hours, but we allow up to 24 hours to ensure the highest quality output.'
+    answer: 'We guarantee a 36-hour turnaround for all our editing services. Most projects are completed within 24-30 hours, but we allow up to 36 hours to ensure the highest quality output.'
   },
   {
     question: 'What file formats do you accept?',

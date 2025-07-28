@@ -4,8 +4,8 @@ import { Card, CardContent } from '../ui/card';
 const benefits = [
   {
     icon: Clock,
-    title: '24-Hour Delivery',
-    description: 'Lightning-fast turnaround without compromising quality. Get your edited videos back in just 24 hours.',
+    title: '36-Hour Delivery',
+    description: 'Lightning-fast turnaround without compromising quality. Get your edited videos back in just 36 hours.',
     color: 'from-blue-500 to-cyan-500'
   },
   {

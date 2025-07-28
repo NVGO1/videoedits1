@@ -45,7 +45,7 @@ const ThankYouPage: React.FC = () => {
         </p>
         
         <p style={{ color: '#666', marginBottom: '25px' }}>
-          To complete your order and start the 24-hour editing process, 
+          To complete your order and start the 36-hour editing process, 
           please complete your payment below:
         </p>
 
@@ -104,7 +104,7 @@ const ThankYouPage: React.FC = () => {
         <ol style={{ color: '#666', lineHeight: '1.6' }}>
           <li><strong>Payment Confirmation:</strong> Once payment is received, you'll get an email confirmation</li>
           <li><strong>Project Assignment:</strong> Your project will be assigned to our editing team within 1 hour</li>
-          <li><strong>24-Hour Delivery:</strong> Your edited video will be delivered within 24 hours of payment</li>
+          <li><strong>36-Hour Delivery:</strong> Your edited video will be delivered within 36 hours of payment</li>
           <li><strong>Revisions:</strong> One round of revisions is included if needed</li>
         </ol>
         

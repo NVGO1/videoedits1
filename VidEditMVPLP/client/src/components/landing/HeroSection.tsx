@@ -36,7 +36,7 @@ export function HeroSection() {
               <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
                 YouTube
               </span>{' '}
-              in 24 Hours
+              in 36 Hours
             </h1>
             
             <p className="text-xl lg:text-2xl text-blue-100 mb-8 leading-relaxed">
