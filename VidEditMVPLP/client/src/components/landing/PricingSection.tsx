@@ -109,7 +109,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
         {/* Success Metrics Image */}
         <div className="text-center">
           <img
-            src="/Images/pricing section.jpg"
+            src="https://letsnvgo.com/Images/pricing%20section.jpg"
             alt="YouTube Success Metrics"
             className="rounded-2xl shadow-2xl mx-auto max-w-4xl w-full object-cover"
             loading="lazy"

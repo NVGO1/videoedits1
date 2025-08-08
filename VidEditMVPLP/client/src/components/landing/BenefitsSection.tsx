@@ -55,7 +55,7 @@ export function BenefitsSection() {
         {/* Satisfied Creator Image */}
         <div className="text-center">
           <img
-            src="/Images/Benefits section.jpg"
+            src="https://letsnvgo.com/Images/Benefits%20section.jpg"
             alt="Professional Video Editing Workspace"
             className="rounded-2xl shadow-2xl mx-auto max-w-4xl w-full object-cover"
             loading="lazy"

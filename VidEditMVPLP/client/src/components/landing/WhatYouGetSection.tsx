@@ -46,7 +46,7 @@ export function WhatYouGetSection() {
             <Card className="overflow-hidden shadow-2xl border-0 bg-gradient-to-br from-background to-secondary/50">
               <CardContent className="p-0">
                 <img
-                  src="/Images/What you get.jpg"
+                  src="https://letsnvgo.com/Images/What%20you%20get.jpg"
                   alt="Professional Video Editing Software"
                   className="w-full h-auto object-cover"
                   loading="lazy"

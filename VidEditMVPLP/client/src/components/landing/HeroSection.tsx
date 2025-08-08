@@ -74,7 +74,7 @@ export function HeroSection() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
               <img
-                src="/Images/Hero Section Image.jpg"
+                src="https://letsnvgo.com/Images/Hero%20Section%20Image.jpg"
                 alt="Professional Video Editing Workspace with Multiple Monitors"
                 className="w-full h-auto object-cover"
                 loading="lazy"
