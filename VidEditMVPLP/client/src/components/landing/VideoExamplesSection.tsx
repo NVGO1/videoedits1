@@ -2,19 +2,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 const videoExamples = [
   {
-    title: 'Gaming Edit Example',
+    title: 'Business & Marketing Videos',
     videoId: 'sNPPl7KUJg4',
-    description: 'High-energy gaming content with dynamic transitions'
+    description: 'Product demos, testimonials, social media ads. Professional presentation, brand-consistent editing. Optimized for conversion and engagement.'
   },
   {
-    title: 'Tutorial Edit Example',
+    title: 'Social Media Content',
     videoId: 'f5_a33xYnQ8',
-    description: 'Clean, educational content with professional graphics'
+    description: 'Instagram Reels, TikTok videos, YouTube Shorts. Platform-specific formatting and captions. Trending styles and engagement optimization.'
   },
   {
-    title: 'Vlog Edit Example',
+    title: 'Educational Content',
     videoId: '6l8EAqt1oVU',
-    description: 'Lifestyle content with cinematic color grading'
+    description: 'Course videos, tutorials, training materials. Clear audio, professional graphics, easy-to-follow editing. Student engagement focused.'
+  },
+  {
+    title: 'Creator Content',
+    videoId: null, // Placeholder for missing video
+    description: 'YouTube videos, podcast clips, personal brand content. Audience retention focused editing. Consistent style development.',
+    placeholder: true
   }
 ];
 
@@ -31,7 +37,7 @@ export function VideoExamplesSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {videoExamples.map((video, index) => (
             <Card
               key={index}
@@ -39,14 +45,23 @@ export function VideoExamplesSection() {
             >
               <CardContent className="p-0">
                 <div className="relative aspect-video">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.videoId}`}
-                    title={video.title}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                  {video.placeholder ? (
+                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-4xl mb-2">🎬</div>
+                        <p className="text-sm text-muted-foreground">Video Coming Soon</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.videoId}`}
+                      title={video.title}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  )}
                 </div>
               </CardContent>
               <CardHeader>

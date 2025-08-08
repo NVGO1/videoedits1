@@ -1,6 +1,6 @@
 import { Card, CardContent } from '../ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Star } from 'lucide-react';
+import { Star, Check } from 'lucide-react';
 
 interface Testimonial {
   name: string;
@@ -22,11 +22,11 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
             What Our Clients Say
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join hundreds of satisfied YouTube creators who have transformed their channels with our editing services.
+            Join 100+ creators who've streamlined their editing process.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
@@ -55,6 +55,43 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Why Choose Our Service Section */}
+        <div className="text-center">
+          <h3 className="text-3xl lg:text-4xl font-bold mb-8 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+            Why Choose Our Service?
+          </h3>
+          
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 hover:shadow-lg transition-all duration-300">
+              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Check className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-lg font-medium">No platform shopping required - we handle editor selection</span>
+            </div>
+            
+            <div className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 hover:shadow-lg transition-all duration-300">
+              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Check className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-lg font-medium">Consistent quality standards across all projects</span>
+            </div>
+            
+            <div className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 hover:shadow-lg transition-all duration-300">
+              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Check className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-lg font-medium">Reliable delivery - never miss your content schedule</span>
+            </div>
+            
+            <div className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 hover:shadow-lg transition-all duration-300">
+              <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Check className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-lg font-medium">Satisfaction guaranteed - full refund if not delivered on time</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

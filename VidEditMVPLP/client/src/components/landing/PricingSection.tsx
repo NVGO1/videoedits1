@@ -43,6 +43,11 @@ export function PricingSection({ plans }: PricingSectionProps) {
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
             Choose Your Plan
           </h2>
+          <div className="mb-4">
+            <Badge className="text-sm px-4 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold border-0 shadow-lg">
+              Early Bird Special: Save on your first order
+            </Badge>
+          </div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Professional video editing services designed to fit your content creation needs and budget.
           </p>

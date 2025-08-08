@@ -329,7 +329,7 @@ const CustomForm: React.FC = () => {
         <div style={containerStyle}>
           <label style={labelStyle}>Content Type *</label>
           <div style={{ marginTop: '8px' }}>
-            {['Gaming', 'Tutorial', 'Vlog', 'Other'].map((type) => (
+            {['Business/Marketing Videos', 'Social Media Content', 'Educational/Course Content', 'Creator Content', 'Other'].map((type) => (
               <label key={type} style={{ 
                 display: 'flex', 
                 alignItems: 'center', 

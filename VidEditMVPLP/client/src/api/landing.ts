@@ -77,12 +77,13 @@ export const getPricingPlans = () => {
             name: 'Basic',
             originalPrice: 110,
             currentPrice: 90,
-            duration: '5 minutes',
+            duration: '1 to 5 minutes runtime',
             features: [
-              'Basic editing',
-              '1 revision included',
+              'Clean cuts & professional pacing',
+              'Captions & basic color correction',
               '36-hour delivery',
-              'Color correction'
+              'Upload up to 15 minutes (your footage)',
+              '1 revision included'
             ]
           },
           {
@@ -90,13 +91,13 @@ export const getPricingPlans = () => {
             name: 'Pro',
             originalPrice: 145,
             currentPrice: 120,
-            duration: '10 minutes',
+            duration: '6 to 10 minutes runtime',
             features: [
-              'Motion graphics',
-              'Color grading',
-              '1 revision included',
-              '36-hour delivery',
-              'Professional captions'
+              'Everything in Basic +',
+              'Motion graphics & transitions',
+              'Advanced color grading',
+              'Platform optimization',
+              'Upload up to 30 minutes (your footage)'
             ]
           },
           {
@@ -104,14 +105,11 @@ export const getPricingPlans = () => {
             name: 'Premium',
             originalPrice: 180,
             currentPrice: 150,
-            duration: '15 minutes',
+            duration: '11 to 15 minutes runtime',
             features: [
-              'Motion graphics',
-              'Color grading',
-              'Custom intro/outro',
-              '1 revision included',
-              '36-hour delivery',
-              'Professional captions'
+              'Everything in Pro +',
+              'More revisions so you can get your project right',
+              'Priority support'
             ]
           }
         ]

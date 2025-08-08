@@ -2,12 +2,16 @@ import { Check } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 
 const features = [
-  '5–15 minute video editing',
+  'Pre-vetted professional editors',
+  '1–15 minute final runtime',
   'Motion graphics and animations',
   'Professional captions/subtitles',
   'Color grading and correction',
   '1 free revision included',
-  '5+ years expert experience'
+  'Secure payment and communication',
+  'Guaranteed 36-hour delivery',
+  'Quality review before delivery'
+
 ];
 
 export function WhatYouGetSection() {

@@ -1,23 +1,23 @@
-import { Clock, Camera, TrendingUp } from 'lucide-react';
+import { Clock, Shield, Users, CheckCircle, MessageCircle } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 
 const benefits = [
   {
-    icon: Clock,
-    title: '36-Hour Delivery',
-    description: 'Lightning-fast turnaround without compromising quality. Get your edited videos back in just 36 hours.',
+    icon: Shield,
+    title: 'No Platform Shopping Required',
+    description: 'Skip the hassle of vetting editors on freelance platforms. We handle the matching and quality control for you.',
     color: 'from-blue-500 to-cyan-500'
   },
   {
-    icon: Camera,
-    title: 'Pro-Quality Edits',
-    description: 'Professional-grade editing with motion graphics, color grading, and cinematic effects.',
+    icon: Clock,
+    title: 'Guaranteed 36-Hour Delivery',
+    description: 'Your video delivered in 36 hours or get a full refund. No excuses, no delays.',
     color: 'from-purple-500 to-pink-500'
   },
   {
-    icon: TrendingUp,
-    title: 'Affordable Growth',
-    description: 'Premium editing services at prices that won\'t break your content creation budget.',
+    icon: Users,
+    title: 'Expert Editors Matched to Your Content',
+    description: 'Professional editors specifically chosen based on your content type and style preferences.',
     color: 'from-green-500 to-emerald-500'
   }
 ];
@@ -28,14 +28,14 @@ export function BenefitsSection() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Why Choose NVGO?
+            Skip the Platform Hassle
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We combine speed, quality, and affordability to help your YouTube channel reach new heights.
+            No more endless searching, vetting editors, or dealing with unreliable freelancers. Get professional video editing the simple way.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => (
             <Card
               key={index}

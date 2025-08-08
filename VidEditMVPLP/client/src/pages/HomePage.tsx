@@ -4,6 +4,7 @@ import { BenefitsSection } from '../components/landing/BenefitsSection';
 import { WhatYouGetSection } from '../components/landing/WhatYouGetSection';
 import { VideoExamplesSection } from '../components/landing/VideoExamplesSection';
 import { PricingSection } from '../components/landing/PricingSection';
+import { HowItWorksSection } from '../components/landing/HowItWorksSection';
 import { TestimonialsSection } from '../components/landing/TestimonialsSection';
 import { CustomFormSection } from '../components/landing/CustomFormSection';
 import { FAQSection } from '../components/landing/FAQSection';
@@ -64,6 +65,7 @@ export function HomePage() {
         <WhatYouGetSection />
         <VideoExamplesSection />
         <PricingSection plans={pricingPlans} />
+        <HowItWorksSection />
         <TestimonialsSection testimonials={testimonials} />
         <CustomFormSection />
         <FAQSection />

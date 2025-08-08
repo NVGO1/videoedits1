@@ -10,6 +10,7 @@ const navigationItems = [
   { name: 'What You Get', href: '#what-you-get' },
   { name: 'Examples', href: '#examples' },
   { name: 'Pricing', href: '#pricing' },
+  { name: 'How It Works', href: '#how-it-works' },
   { name: 'Testimonials', href: '#testimonials' },
   { name: 'Get Started', href: '#custom-form' },
   { name: 'FAQ', href: '#faq' }

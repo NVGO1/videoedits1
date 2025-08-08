@@ -32,12 +32,15 @@ export function HeroSection() {
           {/* Text Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Elevate Your{' '}
+              Professional Video Editing in{' '}
               <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                YouTube
-              </span>{' '}
-              in 36 Hours
+                36 Hours
+              </span>
             </h1>
+            
+            <p className="text-xl lg:text-2xl text-blue-100 mb-4 leading-relaxed">
+              Skip the platform hassle - get reliable, high-quality editing delivered fast
+            </p>
             
             <p className="text-xl lg:text-2xl text-blue-100 mb-8 leading-relaxed">
               Pro Editing Starting at{' '}
@@ -71,8 +74,8 @@ export function HeroSection() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
               <img
-                src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop"
-                alt="YouTube Creator Studio"
+                src="/Images/Editing videos at desk.jpg"
+                alt="Professional Video Editing Workspace with Multiple Monitors"
                 className="w-full h-auto object-cover"
                 loading="lazy"
               />
