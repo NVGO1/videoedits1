@@ -477,7 +477,7 @@ const CustomForm: React.FC = () => {
             }
           }}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit & Pay →'}
+          {isSubmitting ? 'Submitting...' : 'Secure My Spot →'}
         </button>
       </form>
     </div>

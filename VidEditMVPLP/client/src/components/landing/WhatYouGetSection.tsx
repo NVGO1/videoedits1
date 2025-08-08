@@ -1,5 +1,6 @@
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
+import { Button } from '../ui/button';
 
 const features = [
   'Pre-vetted professional editors',
@@ -15,6 +16,13 @@ const features = [
 ];
 
 export function WhatYouGetSection() {
+  const scrollToForm = () => {
+    const formSection = document.getElementById('custom-form');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="what-you-get" className="py-20 bg-gradient-to-b from-secondary/20 to-background">
       <div className="container mx-auto px-6">
@@ -55,6 +63,18 @@ export function WhatYouGetSection() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Start Your Project Button */}
+        <div className="text-center mt-16">
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-semibold px-12 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl"
+            onClick={scrollToForm}
+          >
+            Start Your Project
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
     </section>

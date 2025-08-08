@@ -54,7 +54,7 @@ export function HeroSection() {
                 className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold px-8 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl"
                 onClick={scrollToForm}
               >
-                Reserve Your Spot
+                Start Your Project
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               

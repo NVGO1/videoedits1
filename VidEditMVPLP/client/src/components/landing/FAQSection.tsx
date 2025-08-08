@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: 'What\'s included in each pricing tier?',
-    answer: 'Basic includes fundamental editing and color correction. Pro adds motion graphics and professional captions. Premium includes everything plus custom intro/outro creation and advanced effects.'
+    answer: 'Basic includes up to 5 minute runtime and fundamental editing and color correction and 1 revision. Pro is for up to 1o minutes and adds motion graphics and professional captions. Premium includes everything in Pro plus up to 15 minute runtime, more revisions, and priority support.'
   },
   {
     question: 'How do I upload my footage?',
@@ -81,14 +81,14 @@ export function FAQSection() {
           </Accordion>
         </div>
 
-        {/* Reserve Your Spot Button */}
+        {/* Start Your Project Button */}
         <div className="text-center mt-16">
           <Button
             size="lg"
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-12 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl"
             onClick={scrollToForm}
           >
-            Reserve Your Spot
+            Start Your Project
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
