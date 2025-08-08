@@ -27,6 +27,18 @@ const faqs = [
   {
     question: 'What payment methods do you accept?',
     answer: 'We accept all major credit cards, PayPal, and bank transfers. Payment is required upfront to begin the editing process, and we provide detailed invoices for all transactions.'
+  },
+  {
+    question: 'How do I know the quality will be good?',
+    answer: 'We work with pre-vetted professional editors and review every project before delivery. Plus, one revision is included to ensure it meets your standards.'
+  },
+  {
+    question: 'What if you miss the 36-hour deadline?',
+    answer: 'Full refund, no questions asked. We guarantee delivery time.'
+  },
+  {
+    question: 'Do you work with [specific industry]?',
+    answer: 'Yes! We match projects with editors who specialize in your content type and industry.'
   }
 ];
 
