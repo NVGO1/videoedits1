@@ -8,7 +8,7 @@ const steps = [
     title: 'Upload & Pay',
     description: 'Secure upload portal, instant PayPal processing',
     icon: Upload,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    image: '/Images/How to step 1.jpg',
     imageAlt: 'Clean computer interface showing file upload progress, professional workspace, secure cloud upload visualization',
     color: 'from-blue-500 to-cyan-500'
   },
@@ -17,7 +17,7 @@ const steps = [
     title: 'Professional Editing',
     description: 'Matched with specialist editor for your content type. Updates every 12 hours',
     icon: Edit,
-    image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop',
+    image: '/Images/How to step 2.jpg',
     imageAlt: 'Professional video editing timeline with multiple tracks, color correction panels, motion graphics, clean editing interface',
     color: 'from-purple-500 to-pink-500'
   },
@@ -26,7 +26,7 @@ const steps = [
     title: 'Receive & Review',
     description: 'Delivered in 36 hours guaranteed. One revision included to perfect it',
     icon: CheckCircle,
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop',
+    image: '/Images/How to step 3.jpg',
     imageAlt: 'Notification of completed video project, satisfied customer reviewing final video on laptop, professional office setting',
     color: 'from-green-500 to-emerald-500'
   }

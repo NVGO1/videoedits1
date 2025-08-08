@@ -46,7 +46,7 @@ export function WhatYouGetSection() {
             <Card className="overflow-hidden shadow-2xl border-0 bg-gradient-to-br from-background to-secondary/50">
               <CardContent className="p-0">
                 <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+                  src="/Images/What you get.jpg"
                   alt="Professional Video Editing Software"
                   className="w-full h-auto object-cover"
                   loading="lazy"

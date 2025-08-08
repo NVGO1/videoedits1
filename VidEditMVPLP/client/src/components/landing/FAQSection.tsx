@@ -37,7 +37,7 @@ const faqs = [
     answer: 'Full refund, no questions asked. We guarantee delivery time.'
   },
   {
-    question: 'Do you work with [specific industry]?',
+    question: 'Do you work with my industry?',
     answer: 'Yes! We match projects with editors who specialize in your content type and industry.'
   }
 ];

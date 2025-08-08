@@ -1,9 +1,9 @@
-import { Clock, Shield, Users, CheckCircle, MessageCircle } from 'lucide-react';
+import { Clock, Zap, Users, CheckCircle, MessageCircle } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 
 const benefits = [
   {
-    icon: Shield,
+    icon: Zap,
     title: 'No Platform Shopping Required',
     description: 'Skip the hassle of vetting editors on freelance platforms. We handle the matching and quality control for you.',
     color: 'from-blue-500 to-cyan-500'
@@ -55,7 +55,7 @@ export function BenefitsSection() {
         {/* Satisfied Creator Image */}
         <div className="text-center">
           <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop"
+            src="/Images/Benefits section.jpg"
             alt="Professional Video Editing Workspace"
             className="rounded-2xl shadow-2xl mx-auto max-w-4xl w-full object-cover"
             loading="lazy"
