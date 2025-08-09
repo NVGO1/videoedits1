@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: 'How do I upload my footage?',
-    answer: 'After booking, we\'ll provide you with a secure upload link where you can share your raw footage. We support files up to 50GB and provide detailed instructions for the upload process.'
+    answer: 'In the form there is an option to upload your footage directly. If your footage is too large you may provide a link to your link using WeTransfer, Google drive, or Drop box. If there are issues going that route you may email your footage to Support@letsnvgo.com'
   },
   {
     question: 'What payment methods do you accept?',

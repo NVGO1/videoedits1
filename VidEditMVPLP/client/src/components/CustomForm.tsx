@@ -152,9 +152,9 @@ const CustomForm: React.FC = () => {
     try {
       // Calculate amount for PayPal link
       const priceMap = {
-        '5 min': 90,
-        '10 min': 120,
-        '15 min': 150
+        'Basic - 1 to 5 min runtime': 90,
+        'Pro - 6 to 10 min runtime': 120,
+        'Premium - 11 to 15 min runtime': 150
       };
       const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
       
@@ -252,9 +252,6 @@ const CustomForm: React.FC = () => {
 
   return (
     <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
-      <h2 style={{ color: 'inherit', marginBottom: '30px', textAlign: 'center' }}>
-        NVGO Video Editing Request
-      </h2>
       <form 
         name="nvgo-order" 
         method="POST" 
@@ -319,9 +316,9 @@ const CustomForm: React.FC = () => {
             }}
           >
             <option value="" style={{ color: '#999' }}>Select video length</option>
-            <option value="5 min" style={{ color: '#333' }}>5 min ($90)</option>
-            <option value="10 min" style={{ color: '#333' }}>10 min ($120)</option>
-            <option value="15 min" style={{ color: '#333' }}>15 min ($150)</option>
+            <option value="Basic - 1 to 5 min runtime" style={{ color: '#333' }}>Basic - 1 to 5 min runtime ($90)</option>
+            <option value="Pro - 6 to 10 min runtime" style={{ color: '#333' }}>Pro - 6 to 10 min runtime ($120)</option>
+            <option value="Premium - 11 to 15 min runtime" style={{ color: '#333' }}>Premium - 11 to 15 min runtime ($150)</option>
           </select>
           {errors.videoLength && <span style={errorStyle}>{errors.videoLength}</span>}
         </div>
@@ -407,7 +404,7 @@ const CustomForm: React.FC = () => {
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="footage" style={labelStyle}>Upload Footage (Max 100MB) *</label>
+          <label htmlFor="footage" style={labelStyle}>Upload Footage (Max 100MB, up to 15 minutes raw footage) *</label>
           <input 
             type="file" 
             id="footage"
@@ -422,7 +419,7 @@ const CustomForm: React.FC = () => {
             }}
           />
           <small style={smallTextStyle}>
-            For files larger than 100MB, use the link field below
+            For files larger than 100MB, use the link field below. Up to 30 minutes for pro/premium.
           </small>
           {errors.footage && <span style={errorStyle}>{errors.footage}</span>}
         </div>
