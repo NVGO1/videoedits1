@@ -8,7 +8,7 @@ interface FormData {
   keyFeatures: string[];
   projectDetails: string;
   uploadLink: string;
-  footage: File | null;
+  footage: File[];
 }
 
 const CustomForm: React.FC = () => {
@@ -20,10 +20,10 @@ const CustomForm: React.FC = () => {
     keyFeatures: [],
     projectDetails: '',
     uploadLink: '',
-    footage: null
+    footage: []
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -31,7 +31,7 @@ const CustomForm: React.FC = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -42,13 +42,13 @@ const CustomForm: React.FC = () => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
+    const files = Array.from(e.target.files || []);
     setFormData(prev => ({
       ...prev,
-      footage: file
+      footage: files
     }));
-    
-    // Clear errors when file is selected
+
+    // Clear errors when files are selected
     if (errors.footage || errors.uploadLink) {
       setErrors(prev => ({
         ...prev,
@@ -61,7 +61,7 @@ const CustomForm: React.FC = () => {
   const handleCheckboxChange = (feature: string) => {
     setFormData(prev => {
       let newFeatures = [...prev.keyFeatures];
-      
+
       if (feature === 'All') {
         // If "All" is selected, select all options or deselect all
         if (newFeatures.includes('All')) {
@@ -84,13 +84,13 @@ const CustomForm: React.FC = () => {
           }
         }
       }
-      
+
       return {
         ...prev,
         keyFeatures: newFeatures
       };
     });
-    
+
     // Clear error when user selects features
     if (errors.keyFeatures) {
       setErrors(prev => ({
@@ -101,54 +101,63 @@ const CustomForm: React.FC = () => {
   };
 
   const validateForm = (): boolean => {
-    const newErrors: {[key: string]: string} = {};
-    
+    const newErrors: { [key: string]: string } = {};
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
+
     if (!formData.videoLength) {
       newErrors.videoLength = 'Please select a video length';
     }
-    
+
     if (!formData.contentType) {
       newErrors.contentType = 'Please select a content type';
     }
-    
+
     if (formData.keyFeatures.length === 0) {
       newErrors.keyFeatures = 'Please select at least one key feature';
     }
-    
+
     if (!formData.projectDetails.trim()) {
       newErrors.projectDetails = 'Project details are required';
     }
-    
-    // Either footage file OR upload link is required
-    if (!formData.footage && !formData.uploadLink.trim()) {
-      newErrors.footage = 'Please either upload a file or provide an upload link';
-      newErrors.uploadLink = 'Please either upload a file or provide an upload link';
+
+    // Either footage files OR upload link is required
+    if (formData.footage.length === 0 && !formData.uploadLink.trim()) {
+      newErrors.footage = 'Please either upload files or provide an upload link';
+      newErrors.uploadLink = 'Please either upload files or provide an upload link';
     }
-    
+
+    // Check total file size (100MB limit for Netlify)
+    if (formData.footage.length > 0) {
+      const totalSize = formData.footage.reduce((sum, file) => sum + file.size, 0);
+      const maxSize = 100 * 1024 * 1024; // 100MB in bytes
+      if (totalSize > maxSize) {
+        newErrors.footage = `Total file size (${Math.round(totalSize / 1024 / 1024)}MB) exceeds 100MB limit. Please use upload link for larger files.`;
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form before submitting
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       // Calculate amount for PayPal link
       const priceMap = {
@@ -157,23 +166,23 @@ const CustomForm: React.FC = () => {
         'Premium - 11 to 15 min runtime': 150
       };
       const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
-      
+
       // Generate PayPal link
       const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
-      
+
       // Submit form to both Netlify Forms AND our function
       const form = e.target as HTMLFormElement;
       const formDataObj = new FormData(form);
-      
+
       // Add the form-name field to ensure Netlify processes it correctly
       formDataObj.append('form-name', 'nvgo-order');
-      
+
       // Submit to Netlify Forms first (for dashboard)
       await fetch('/', {
         method: 'POST',
         body: formDataObj
       });
-      
+
       // Then submit to our function for Google Sheets
       const response = await fetch('/.netlify/functions/nvgo-order-submission', {
         method: 'POST',
@@ -193,14 +202,14 @@ const CustomForm: React.FC = () => {
           }
         })
       });
-      
+
       if (response.ok) {
         // Redirect to thank you page with PayPal link
         window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
       } else {
         throw new Error('Form submission failed');
       }
-      
+
     } catch (error) {
       console.error('Form submission error:', error);
       setIsSubmitting(false);
@@ -252,10 +261,10 @@ const CustomForm: React.FC = () => {
 
   return (
     <div style={{ padding: '30px', maxWidth: '600px', margin: '0 auto' }}>
-      <form 
-        name="nvgo-order" 
-        method="POST" 
-        data-netlify="true" 
+      <form
+        name="nvgo-order"
+        method="POST"
+        data-netlify="true"
         data-netlify-honeypot="bot-field"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
@@ -266,16 +275,16 @@ const CustomForm: React.FC = () => {
         <input type="hidden" name="bot-field" />
         {/* Hidden field for keyFeatures to submit to Netlify */}
         <input type="hidden" name="keyFeatures" value={formData.keyFeatures.join(', ')} />
-        
+
         <div style={containerStyle}>
           <label htmlFor="name" style={labelStyle}>Name *</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="name"
-            name="name" 
+            name="name"
             value={formData.name}
             onChange={handleChange}
-            required 
+            required
             style={{
               ...inputStyle,
               borderColor: errors.name ? '#dc2626' : '#d1d5db'
@@ -286,13 +295,13 @@ const CustomForm: React.FC = () => {
 
         <div style={containerStyle}>
           <label htmlFor="email" style={labelStyle}>Email *</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             id="email"
-            name="email" 
+            name="email"
             value={formData.email}
             onChange={handleChange}
-            required 
+            required
             style={{
               ...inputStyle,
               borderColor: errors.email ? '#dc2626' : '#d1d5db'
@@ -303,9 +312,9 @@ const CustomForm: React.FC = () => {
 
         <div style={containerStyle}>
           <label htmlFor="videoLength" style={labelStyle}>Video Length *</label>
-          <select 
+          <select
             id="videoLength"
-            name="videoLength" 
+            name="videoLength"
             value={formData.videoLength}
             onChange={handleChange}
             required
@@ -327,9 +336,9 @@ const CustomForm: React.FC = () => {
           <label style={labelStyle}>Content Type *</label>
           <div style={{ marginTop: '8px' }}>
             {['Business/Marketing Videos', 'Social Media Content', 'Educational/Course Content', 'Creator Content', 'Other'].map((type) => (
-              <label key={type} style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+              <label key={type} style={{
+                display: 'flex',
+                alignItems: 'center',
                 marginBottom: '8px',
                 cursor: 'pointer',
                 fontSize: '14px'
@@ -358,9 +367,9 @@ const CustomForm: React.FC = () => {
           <label style={labelStyle}>Key Features Needed *</label>
           <div style={{ marginTop: '8px' }}>
             {['Captions', 'Motion Graphics', 'Color Grading', 'All'].map((feature) => (
-              <label key={feature} style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+              <label key={feature} style={{
+                display: 'flex',
+                alignItems: 'center',
                 marginBottom: '8px',
                 cursor: 'pointer',
                 fontSize: '14px'
@@ -385,9 +394,9 @@ const CustomForm: React.FC = () => {
 
         <div style={containerStyle}>
           <label htmlFor="projectDetails" style={labelStyle}>Project Details *</label>
-          <textarea 
+          <textarea
             id="projectDetails"
-            name="projectDetails" 
+            name="projectDetails"
             value={formData.projectDetails}
             onChange={handleChange}
             required
@@ -404,12 +413,13 @@ const CustomForm: React.FC = () => {
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="footage" style={labelStyle}>Upload Footage (Max 100MB, up to 15 minutes raw footage) *</label>
-          <input 
-            type="file" 
+          <label htmlFor="footage" style={labelStyle}>Upload Video Files (Max 100MB total, up to 15 minutes raw footage) *</label>
+          <input
+            type="file"
             id="footage"
-            name="footage" 
+            name="footage"
             accept="video/*"
+            multiple
             onChange={handleFileChange}
             style={{
               ...inputStyle,
@@ -418,18 +428,33 @@ const CustomForm: React.FC = () => {
               paddingBottom: '8px'
             }}
           />
+          {formData.footage.length > 0 && (
+            <div style={{ marginTop: '8px', padding: '8px', backgroundColor: '#f3f4f6', borderRadius: '4px' }}>
+              <small style={{ color: '#374151', fontWeight: '500' }}>
+                Selected files ({formData.footage.length}):
+              </small>
+              {formData.footage.map((file, index) => (
+                <div key={index} style={{ fontSize: '12px', color: '#6b7280', marginTop: '2px' }}>
+                  • {file.name} ({Math.round(file.size / 1024 / 1024 * 100) / 100}MB)
+                </div>
+              ))}
+              <small style={{ color: '#374151', fontWeight: '500', marginTop: '4px', display: 'block' }}>
+                Total: {Math.round(formData.footage.reduce((sum, file) => sum + file.size, 0) / 1024 / 1024 * 100) / 100}MB
+              </small>
+            </div>
+          )}
           <small style={smallTextStyle}>
-            For files larger than 100MB, use the link field below. Up to 30 minutes for pro/premium.
+            You can select multiple video files. For files larger than 100MB total, use the link field below. Up to 30 minutes for pro/premium.
           </small>
           {errors.footage && <span style={errorStyle}>{errors.footage}</span>}
         </div>
 
         <div style={containerStyle}>
           <label htmlFor="uploadLink" style={labelStyle}>Or Paste Upload Link *</label>
-          <input 
-            type="url" 
+          <input
+            type="url"
             id="uploadLink"
-            name="uploadLink" 
+            name="uploadLink"
             value={formData.uploadLink}
             onChange={handleChange}
             placeholder="WeTransfer, Google Drive, Dropbox link, etc."
@@ -444,15 +469,15 @@ const CustomForm: React.FC = () => {
           {errors.uploadLink && <span style={errorStyle}>{errors.uploadLink}</span>}
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={isSubmitting}
-          style={{ 
+          style={{
             width: '100%',
-            padding: '16px 24px', 
-            background: isSubmitting ? '#94a3b8' : 'linear-gradient(to right, #facc15, #f97316)', 
-            color: isSubmitting ? 'white' : '#000000', 
-            border: 'none', 
+            padding: '16px 24px',
+            background: isSubmitting ? '#94a3b8' : 'linear-gradient(to right, #facc15, #f97316)',
+            color: isSubmitting ? 'white' : '#000000',
+            border: 'none',
             borderRadius: '9999px', // Rounded-full like the hero button
             fontSize: '18px',
             fontWeight: '600',
