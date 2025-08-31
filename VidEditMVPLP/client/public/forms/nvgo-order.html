@@ -5,7 +5,7 @@
 </head>
 <body>
     <!-- This hidden form helps Netlify detect the form structure -->
-    <form name="nvgo-order" netlify netlify-honeypot="bot-field" action="/.netlify/functions/submitOrder" method="POST" hidden>
+    <form name="nvgo-order" netlify netlify-honeypot="bot-field" action="/.netlify/functions/submitOrder" method="POST" enctype="multipart/form-data" hidden>
         <input type="text" name="name" />
         <input type="email" name="email" />
         <select name="videoLength">

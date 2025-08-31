@@ -170,37 +170,17 @@ const CustomForm: React.FC = () => {
       // Generate PayPal link
       const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
 
-      // Submit form to both Netlify Forms AND our function
+      // Submit directly to our Netlify function which will handle both processing and Netlify Forms
       const form = e.target as HTMLFormElement;
       const formDataObj = new FormData(form);
 
       // Add the form-name field to ensure Netlify processes it correctly
       formDataObj.append('form-name', 'nvgo-order');
 
-      // Submit to Netlify Forms first (for dashboard)
-      await fetch('/', {
+      // Submit to our function which handles everything
+      const response = await fetch('/.netlify/functions/submitOrder', {
         method: 'POST',
-        body: formDataObj
-      });
-
-      // Then submit to our function for Google Sheets
-      const response = await fetch('/.netlify/functions/nvgo-order-submission', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          form_name: 'nvgo-order',
-          data: {
-            name: formData.name,
-            email: formData.email,
-            videoLength: formData.videoLength,
-            contentType: formData.contentType,
-            keyFeatures: formData.keyFeatures.join(', '),
-            projectDetails: formData.projectDetails,
-            uploadLink: formData.uploadLink
-          }
-        })
+        body: formDataObj // Send as FormData to preserve files
       });
 
       if (response.ok) {

@@ -10,13 +10,31 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Parse form data
+    let formData;
+    let fileUploadInfo = '';
+    
+    console.log('Event body type:', typeof event.body);
+    console.log('Content-Type:', event.headers['content-type']);
+    
+    // Parse form data from URL-encoded body (Netlify processes multipart and converts to URL-encoded)
     const body = new URLSearchParams(event.body);
-    const formData = Object.fromEntries(body);
+    formData = Object.fromEntries(body);
+    
+    // Check for file uploads - Netlify converts file uploads to URLs in the form data
+    if (formData.footage && formData.footage !== '') {
+      fileUploadInfo = `Netlify file upload: ${formData.footage}`;
+      console.log('File upload detected:', formData.footage);
+    } else if (formData.uploadLink && formData.uploadLink !== '') {
+      fileUploadInfo = formData.uploadLink;
+      console.log('Upload link provided:', formData.uploadLink);
+    } else {
+      fileUploadInfo = 'No upload provided';
+      console.log('No file upload or link provided');
+    }
     
     console.log('Form submission received:', formData);
 
-    const { name, email, videoLength, contentType, keyFeatures, projectDetails, uploadLink } = formData;
+    const { name, email, videoLength, contentType: contentTypeField, keyFeatures, projectDetails, uploadLink } = formData;
 
     // Calculate amount based on video length
     const priceMap = {
@@ -67,6 +85,8 @@ exports.handler = async (event, context) => {
           'Payment Pending'
         ]);
 
+        // Use the file upload info we determined earlier
+        
         // Append row to sheet
         const result = await sheets.spreadsheets.values.append({
           spreadsheetId: process.env.SHEET_ID,
@@ -78,10 +98,10 @@ exports.handler = async (event, context) => {
               name,
               email,
               videoLength,
-              contentType || '',
+              contentTypeField || '',
               keyFeatures || '',
               projectDetails || '',
-              uploadLink || '',
+              fileUploadInfo,
               'Payment Pending'
             ]]
           },
