@@ -185,6 +185,18 @@ const CustomForm: React.FC = () => {
 
       console.log('Netlify Forms response:', netlifyResponse.status);
 
+      // Prepare file info for Google Sheets
+      let fileInfo = '';
+      if (formData.footage.length > 0) {
+        const fileNames = formData.footage.map(file => file.name).join(', ');
+        const totalSize = Math.round(formData.footage.reduce((sum, file) => sum + file.size, 0) / 1024 / 1024 * 100) / 100;
+        fileInfo = `Files uploaded to Netlify: ${fileNames} (${totalSize}MB total)`;
+      } else if (formData.uploadLink) {
+        fileInfo = formData.uploadLink;
+      } else {
+        fileInfo = 'No upload provided';
+      }
+
       // Then submit to our function for Google Sheets (without files, just data)
       const response = await fetch('/.netlify/functions/submitOrder', {
         method: 'POST',
@@ -200,17 +212,22 @@ const CustomForm: React.FC = () => {
           keyFeatures: formData.keyFeatures.join(', '),
           projectDetails: formData.projectDetails,
           uploadLink: formData.uploadLink,
-          // Add a flag to indicate this came from our form
+          fileInfo: fileInfo, // Add the file info we prepared
           source: 'custom-form'
         })
       });
 
       console.log('Function response:', response.status);
-
+      
       if (response.ok) {
+        const result = await response.json();
+        console.log('Function result:', result);
+        
         // Redirect to thank you page with PayPal link
         window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
       } else {
+        const errorText = await response.text();
+        console.error('Function error response:', errorText);
         throw new Error('Form submission failed');
       }
 
