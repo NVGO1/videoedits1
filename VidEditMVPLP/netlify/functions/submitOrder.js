@@ -20,16 +20,21 @@ exports.handler = async (event, context) => {
       event.body?.substring(0, 500)
     );
 
-    // Parse form data from URL-encoded body (Netlify processes multipart and converts to URL-encoded)
+    // Parse form data - Netlify processes multipart forms and provides file URLs
     const body = new URLSearchParams(event.body);
     formData = Object.fromEntries(body);
 
     console.log("Parsed form data:", formData);
     console.log("All form data keys:", Object.keys(formData));
 
-    // Check for file uploads - Netlify converts file uploads to URLs in the form data
+    // Check for file uploads - when submitted naturally, Netlify provides file URLs
     if (formData.footage && formData.footage !== "") {
-      fileUploadInfo = `Netlify file upload: ${formData.footage}`;
+      // If footage contains a URL, it's a Netlify file upload
+      if (formData.footage.startsWith('http')) {
+        fileUploadInfo = `Netlify file upload: ${formData.footage}`;
+      } else {
+        fileUploadInfo = `Files uploaded: ${formData.footage}`;
+      }
       console.log("File upload detected:", formData.footage);
     } else if (formData.uploadLink && formData.uploadLink !== "") {
       fileUploadInfo = formData.uploadLink;
@@ -51,24 +56,21 @@ exports.handler = async (event, context) => {
       keyFeatures,
       projectDetails,
       uploadLink,
-      fileInfo,
-      source,
+      paypalAmount,
+      paypalName,
     } = formData;
 
-    // If this is from our custom form, use the file info we prepared
-    if (source === "custom-form") {
-      fileUploadInfo = fileInfo || uploadLink || "No upload provided";
-      console.log("Custom form submission - using prepared file info:", fileUploadInfo);
+    // Use the amount passed from the form, or calculate it
+    let amount = parseInt(paypalAmount) || 90;
+    if (!paypalAmount) {
+      const priceMap = {
+        "Basic - 1 to 5 min runtime": 90,
+        "Pro - 6 to 10 min runtime": 120,
+        "Premium - 11 to 15 min runtime": 150,
+      };
+      amount = priceMap[videoLength] || 90;
     }
-
-    // Calculate amount based on video length
-    const priceMap = {
-      "Basic - 1 to 5 min runtime": 90,
-      "Pro - 6 to 10 min runtime": 120,
-      "Premium - 11 to 15 min runtime": 150,
-    };
-
-    const amount = priceMap[videoLength] || 90;
+    
     console.log("Video length received:", videoLength);
     console.log("Amount calculated:", amount);
 
@@ -153,17 +155,14 @@ exports.handler = async (event, context) => {
       console.log("- SHEET_ID missing:", !process.env.SHEET_ID);
     }
 
-    // Return success response (don't redirect from function, let frontend handle it)
+    // Redirect to thank you page with PayPal link
     return {
-      statusCode: 200,
+      statusCode: 302,
       headers: {
-        'Content-Type': 'application/json',
+        Location: `/thankyou?paypal=${encodeURIComponent(
+          paypalLink
+        )}&name=${encodeURIComponent(paypalName || name)}&amount=${amount}`,
       },
-      body: JSON.stringify({
-        success: true,
-        paypalLink: paypalLink,
-        message: 'Form processed successfully'
-      }),
     };
   } catch (error) {
     console.error("Function error:", error);

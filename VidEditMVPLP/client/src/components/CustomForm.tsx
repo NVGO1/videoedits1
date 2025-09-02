@@ -170,66 +170,29 @@ const CustomForm: React.FC = () => {
       // Generate PayPal link
       const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
 
-      // Submit to Netlify Forms first (this will appear in dashboard and handle files)
-      const form = e.target as HTMLFormElement;
-      const formDataObj = new FormData(form);
-
-      // Add the form-name field to ensure Netlify processes it correctly
-      formDataObj.append('form-name', 'nvgo-order');
-
-      // Submit to Netlify Forms endpoint first
-      const netlifyResponse = await fetch('/', {
-        method: 'POST',
-        body: formDataObj
-      });
-
-      console.log('Netlify Forms response:', netlifyResponse.status);
-
-      // Prepare file info for Google Sheets
-      let fileInfo = '';
-      if (formData.footage.length > 0) {
-        const fileNames = formData.footage.map(file => file.name).join(', ');
-        const totalSize = Math.round(formData.footage.reduce((sum, file) => sum + file.size, 0) / 1024 / 1024 * 100) / 100;
-        fileInfo = `Files uploaded to Netlify: ${fileNames} (${totalSize}MB total)`;
-      } else if (formData.uploadLink) {
-        fileInfo = formData.uploadLink;
-      } else {
-        fileInfo = 'No upload provided';
-      }
-
-      // Then submit to our function for Google Sheets (without files, just data)
-      const response = await fetch('/.netlify/functions/submitOrder', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          'form-name': 'nvgo-order',
-          name: formData.name,
-          email: formData.email,
-          videoLength: formData.videoLength,
-          contentType: formData.contentType,
-          keyFeatures: formData.keyFeatures.join(', '),
-          projectDetails: formData.projectDetails,
-          uploadLink: formData.uploadLink,
-          fileInfo: fileInfo, // Add the file info we prepared
-          source: 'custom-form'
-        })
-      });
-
-      console.log('Function response:', response.status);
+      // Submit directly to our Netlify function, which will handle both Netlify Forms and Google Sheets
+      // The key is to NOT prevent default and let the form submit naturally with files
       
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Function result:', result);
-        
-        // Redirect to thank you page with PayPal link
-        window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
-      } else {
-        const errorText = await response.text();
-        console.error('Function error response:', errorText);
-        throw new Error('Form submission failed');
-      }
+      // Don't use fetch - let the form submit naturally to preserve file uploads
+      // Update the form action to point to our function
+      const form = e.target as HTMLFormElement;
+      form.action = '/.netlify/functions/submitOrder';
+      
+      // Add hidden fields for PayPal calculation
+      const paypalInput = document.createElement('input');
+      paypalInput.type = 'hidden';
+      paypalInput.name = 'paypalAmount';
+      paypalInput.value = amount.toString();
+      form.appendChild(paypalInput);
+      
+      const paypalNameInput = document.createElement('input');
+      paypalNameInput.type = 'hidden';
+      paypalNameInput.name = 'paypalName';
+      paypalNameInput.value = formData.name;
+      form.appendChild(paypalNameInput);
+      
+      // Let the form submit naturally - this will preserve file uploads
+      return;
 
     } catch (error) {
       console.error('Form submission error:', error);
@@ -285,6 +248,7 @@ const CustomForm: React.FC = () => {
       <form
         name="nvgo-order"
         method="POST"
+        action="/.netlify/functions/submitOrder"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
         encType="multipart/form-data"
