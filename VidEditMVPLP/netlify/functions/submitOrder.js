@@ -15,10 +15,14 @@ exports.handler = async (event, context) => {
     
     console.log('Event body type:', typeof event.body);
     console.log('Content-Type:', event.headers['content-type']);
+    console.log('Raw event body (first 500 chars):', event.body?.substring(0, 500));
     
     // Parse form data from URL-encoded body (Netlify processes multipart and converts to URL-encoded)
     const body = new URLSearchParams(event.body);
     formData = Object.fromEntries(body);
+    
+    console.log('Parsed form data:', formData);
+    console.log('All form data keys:', Object.keys(formData));
     
     // Check for file uploads - Netlify converts file uploads to URLs in the form data
     if (formData.footage && formData.footage !== '') {
@@ -30,20 +34,30 @@ exports.handler = async (event, context) => {
     } else {
       fileUploadInfo = 'No upload provided';
       console.log('No file upload or link provided');
+      console.log('footage value:', formData.footage);
+      console.log('uploadLink value:', formData.uploadLink);
     }
     
     console.log('Form submission received:', formData);
 
-    const { name, email, videoLength, contentType: contentTypeField, keyFeatures, projectDetails, uploadLink } = formData;
+    const { name, email, videoLength, contentType: contentTypeField, keyFeatures, projectDetails, uploadLink, source } = formData;
+    
+    // If this is from our custom form, we know files were submitted to Netlify Forms separately
+    if (source === 'custom-form') {
+      fileUploadInfo = uploadLink || 'Files uploaded via Netlify Forms (check dashboard)';
+      console.log('Custom form submission - files handled by Netlify Forms');
+    }
 
     // Calculate amount based on video length
     const priceMap = {
-      '5 min': 90,
-      '10 min': 120,
-      '15 min': 150
+      'Basic - 1 to 5 min runtime': 90,
+      'Pro - 6 to 10 min runtime': 120,
+      'Premium - 11 to 15 min runtime': 150
     };
     
     const amount = priceMap[videoLength] || 90;
+    console.log('Video length received:', videoLength);
+    console.log('Amount calculated:', amount);
 
     // Generate PayPal link
     const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${process.env.PAYPAL_BUSINESS_EMAIL || 'support@letsnvgo.com'}&amount=${amount}&item_name=NVGO ${videoLength} Edit&custom=${email}&return=https://letsnvgo.com/thankyou`;
