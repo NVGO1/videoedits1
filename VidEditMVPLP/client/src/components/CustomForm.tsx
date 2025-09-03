@@ -148,57 +148,46 @@ const CustomForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmit = (e: React.FormEvent) => {
     // Validate form before submitting
     if (!validateForm()) {
+      e.preventDefault();
       return;
     }
 
     setIsSubmitting(true);
 
-    try {
-      // Calculate amount for PayPal link
-      const priceMap = {
-        'Basic - 1 to 5 min runtime': 90,
-        'Pro - 6 to 10 min runtime': 120,
-        'Premium - 11 to 15 min runtime': 150
-      };
-      const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
+    // Calculate amount for PayPal link
+    const priceMap = {
+      'Basic - 1 to 5 min runtime': 90,
+      'Pro - 6 to 10 min runtime': 120,
+      'Premium - 11 to 15 min runtime': 150
+    };
+    const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
 
-      // Generate PayPal link
-      const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
-
-      // Submit directly to our Netlify function, which will handle both Netlify Forms and Google Sheets
-      // The key is to NOT prevent default and let the form submit naturally with files
-      
-      // Don't use fetch - let the form submit naturally to preserve file uploads
-      // Update the form action to point to our function
-      const form = e.target as HTMLFormElement;
-      form.action = '/.netlify/functions/submitOrder';
-      
-      // Add hidden fields for PayPal calculation
-      const paypalInput = document.createElement('input');
-      paypalInput.type = 'hidden';
-      paypalInput.name = 'paypalAmount';
-      paypalInput.value = amount.toString();
-      form.appendChild(paypalInput);
-      
-      const paypalNameInput = document.createElement('input');
-      paypalNameInput.type = 'hidden';
-      paypalNameInput.name = 'paypalName';
-      paypalNameInput.value = formData.name;
-      form.appendChild(paypalNameInput);
-      
-      // Let the form submit naturally - this will preserve file uploads
-      return;
-
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setIsSubmitting(false);
-      alert('There was an error submitting your form. Please try again.');
-    }
+    // Add hidden fields for PayPal calculation
+    const form = e.target as HTMLFormElement;
+    
+    // Remove any existing PayPal fields to avoid duplicates
+    const existingPaypalAmount = form.querySelector('input[name="paypalAmount"]');
+    const existingPaypalName = form.querySelector('input[name="paypalName"]');
+    if (existingPaypalAmount) existingPaypalAmount.remove();
+    if (existingPaypalName) existingPaypalName.remove();
+    
+    const paypalInput = document.createElement('input');
+    paypalInput.type = 'hidden';
+    paypalInput.name = 'paypalAmount';
+    paypalInput.value = amount.toString();
+    form.appendChild(paypalInput);
+    
+    const paypalNameInput = document.createElement('input');
+    paypalNameInput.type = 'hidden';
+    paypalNameInput.name = 'paypalName';
+    paypalNameInput.value = formData.name;
+    form.appendChild(paypalNameInput);
+    
+    // Let the form submit naturally - this will preserve file uploads
+    // Don't prevent default, don't return false - just let it submit
   };
 
   // Common input styles with proper contrast for both light and dark modes

@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
     // Check for file uploads - when submitted naturally, Netlify provides file URLs
     if (formData.footage && formData.footage !== "") {
       // If footage contains a URL, it's a Netlify file upload
-      if (formData.footage.startsWith('http')) {
+      if (formData.footage.startsWith("http")) {
         fileUploadInfo = `Netlify file upload: ${formData.footage}`;
       } else {
         fileUploadInfo = `Files uploaded: ${formData.footage}`;
@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
       };
       amount = priceMap[videoLength] || 90;
     }
-    
+
     console.log("Video length received:", videoLength);
     console.log("Amount calculated:", amount);
 
