@@ -148,46 +148,78 @@ const CustomForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     // Validate form before submitting
     if (!validateForm()) {
-      e.preventDefault();
       return;
     }
 
     setIsSubmitting(true);
 
-    // Calculate amount for PayPal link
-    const priceMap = {
-      'Basic - 1 to 5 min runtime': 90,
-      'Pro - 6 to 10 min runtime': 120,
-      'Premium - 11 to 15 min runtime': 150
-    };
-    const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
+    try {
+      // Calculate amount for PayPal link
+      const priceMap = {
+        'Basic - 1 to 5 min runtime': 90,
+        'Pro - 6 to 10 min runtime': 120,
+        'Premium - 11 to 15 min runtime': 150
+      };
+      const amount = priceMap[formData.videoLength as keyof typeof priceMap] || 90;
 
-    // Add hidden fields for PayPal calculation
-    const form = e.target as HTMLFormElement;
-    
-    // Remove any existing PayPal fields to avoid duplicates
-    const existingPaypalAmount = form.querySelector('input[name="paypalAmount"]');
-    const existingPaypalName = form.querySelector('input[name="paypalName"]');
-    if (existingPaypalAmount) existingPaypalAmount.remove();
-    if (existingPaypalName) existingPaypalName.remove();
-    
-    const paypalInput = document.createElement('input');
-    paypalInput.type = 'hidden';
-    paypalInput.name = 'paypalAmount';
-    paypalInput.value = amount.toString();
-    form.appendChild(paypalInput);
-    
-    const paypalNameInput = document.createElement('input');
-    paypalNameInput.type = 'hidden';
-    paypalNameInput.name = 'paypalName';
-    paypalNameInput.value = formData.name;
-    form.appendChild(paypalNameInput);
-    
-    // Let the form submit naturally - this will preserve file uploads
-    // Don't prevent default, don't return false - just let it submit
+      // Generate PayPal link
+      const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
+
+      // Create FormData for Netlify Forms submission (with files)
+      const form = e.target as HTMLFormElement;
+      const formDataObj = new FormData(form);
+      formDataObj.append('form-name', 'nvgo-order');
+
+      // Submit to Netlify Forms first (this handles files and appears in dashboard)
+      const netlifyResponse = await fetch('/', {
+        method: 'POST',
+        body: formDataObj
+      });
+
+      console.log('Netlify Forms response:', netlifyResponse.status);
+
+      // Prepare data for Google Sheets (without files, just metadata)
+      const sheetsData = {
+        name: formData.name,
+        email: formData.email,
+        videoLength: formData.videoLength,
+        contentType: formData.contentType,
+        keyFeatures: formData.keyFeatures.join(', '),
+        projectDetails: formData.projectDetails,
+        uploadLink: formData.uploadLink,
+        fileInfo: formData.footage.length > 0 
+          ? `${formData.footage.length} files uploaded (${formData.footage.map(f => f.name).join(', ')}) - Check Netlify Forms dashboard`
+          : formData.uploadLink || 'No upload provided'
+      };
+
+      // Submit to our function for Google Sheets processing
+      const response = await fetch('/.netlify/functions/submitOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sheetsData)
+      });
+
+      console.log('Function response:', response.status);
+
+      if (response.ok || netlifyResponse.ok) {
+        // Redirect to thank you page with PayPal link
+        window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
+      } else {
+        throw new Error('Form submission failed');
+      }
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsSubmitting(false);
+      alert('There was an error submitting your form. Please try again.');
+    }
   };
 
   // Common input styles with proper contrast for both light and dark modes
@@ -237,7 +269,6 @@ const CustomForm: React.FC = () => {
       <form
         name="nvgo-order"
         method="POST"
-        action="/.netlify/functions/submitOrder"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
         encType="multipart/form-data"

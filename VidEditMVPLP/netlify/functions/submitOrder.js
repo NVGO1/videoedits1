@@ -15,35 +15,43 @@ exports.handler = async (event, context) => {
 
     console.log("Event body type:", typeof event.body);
     console.log("Content-Type:", event.headers["content-type"]);
-    console.log(
-      "Raw event body (first 500 chars):",
-      event.body?.substring(0, 500)
-    );
 
-    // Parse form data - Netlify processes multipart forms and provides file URLs
-    const body = new URLSearchParams(event.body);
-    formData = Object.fromEntries(body);
-
-    console.log("Parsed form data:", formData);
-    console.log("All form data keys:", Object.keys(formData));
-
-    // Check for file uploads - when submitted naturally, Netlify provides file URLs
-    if (formData.footage && formData.footage !== "") {
-      // If footage contains a URL, it's a Netlify file upload
-      if (formData.footage.startsWith("http")) {
-        fileUploadInfo = `Netlify file upload: ${formData.footage}`;
-      } else {
-        fileUploadInfo = `Files uploaded: ${formData.footage}`;
-      }
-      console.log("File upload detected:", formData.footage);
-    } else if (formData.uploadLink && formData.uploadLink !== "") {
-      fileUploadInfo = formData.uploadLink;
-      console.log("Upload link provided:", formData.uploadLink);
+    // Check if this is JSON data (from our fetch call)
+    const contentType = event.headers["content-type"] || "";
+    
+    if (contentType.includes("application/json")) {
+      // Handle JSON data from our fetch call
+      formData = JSON.parse(event.body);
+      fileUploadInfo = formData.fileInfo || "No upload provided";
+      console.log("JSON form data received:", formData);
     } else {
-      fileUploadInfo = "No upload provided";
-      console.log("No file upload or link provided");
-      console.log("footage value:", formData.footage);
-      console.log("uploadLink value:", formData.uploadLink);
+      // Handle URL-encoded data (fallback)
+      console.log(
+        "Raw event body (first 500 chars):",
+        event.body?.substring(0, 500)
+      );
+      
+      const body = new URLSearchParams(event.body);
+      formData = Object.fromEntries(body);
+      
+      console.log("Parsed form data:", formData);
+      console.log("All form data keys:", Object.keys(formData));
+
+      // Check for file uploads
+      if (formData.footage && formData.footage !== "") {
+        if (formData.footage.startsWith("http")) {
+          fileUploadInfo = `Netlify file upload: ${formData.footage}`;
+        } else {
+          fileUploadInfo = `Files uploaded: ${formData.footage}`;
+        }
+        console.log("File upload detected:", formData.footage);
+      } else if (formData.uploadLink && formData.uploadLink !== "") {
+        fileUploadInfo = formData.uploadLink;
+        console.log("Upload link provided:", formData.uploadLink);
+      } else {
+        fileUploadInfo = "No upload provided";
+        console.log("No file upload or link provided");
+      }
     }
 
     console.log("Form submission received:", formData);
@@ -155,14 +163,16 @@ exports.handler = async (event, context) => {
       console.log("- SHEET_ID missing:", !process.env.SHEET_ID);
     }
 
-    // Redirect to thank you page with PayPal link
+    // Return success response (frontend handles redirect)
     return {
-      statusCode: 302,
+      statusCode: 200,
       headers: {
-        Location: `/thankyou?paypal=${encodeURIComponent(
-          paypalLink
-        )}&name=${encodeURIComponent(paypalName || name)}&amount=${amount}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        success: true,
+        message: "Form processed successfully",
+      }),
     };
   } catch (error) {
     console.error("Function error:", error);
