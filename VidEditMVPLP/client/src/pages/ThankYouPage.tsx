@@ -12,16 +12,16 @@ const ThankYouPage: React.FC = () => {
     const paypal = params.get('paypal');
     const name = params.get('name');
     const orderAmount = params.get('amount');
-    
+
     if (paypal) setPaypalLink(decodeURIComponent(paypal));
     if (name) setCustomerName(decodeURIComponent(name));
     if (orderAmount) setAmount(orderAmount);
   }, [location]);
 
   return (
-    <div style={{ 
-      padding: '40px 20px', 
-      maxWidth: '800px', 
+    <div style={{
+      padding: '40px 20px',
+      maxWidth: '800px',
       margin: '0 auto',
       textAlign: 'center',
       fontFamily: 'Arial, sans-serif'
@@ -29,23 +29,23 @@ const ThankYouPage: React.FC = () => {
       <h1 style={{ color: '#007cba', marginBottom: '20px' }}>
         Thank You{customerName ? `, ${customerName}` : ''}! 🎉
       </h1>
-      
-      <div style={{ 
-        backgroundColor: '#f8f9fa', 
-        padding: '30px', 
+
+      <div style={{
+        backgroundColor: '#f8f9fa',
+        padding: '30px',
         borderRadius: '8px',
         marginBottom: '30px'
       }}>
         <h2 style={{ color: '#333', marginBottom: '15px' }}>
           Your NVGO Video Edit Request Has Been Received!
         </h2>
-        
+
         <p style={{ fontSize: '18px', color: '#666', marginBottom: '20px' }}>
           {amount && `Order Total: $${amount}`}
         </p>
-        
+
         <p style={{ color: '#666', marginBottom: '25px' }}>
-          To complete your order and start the 36-hour editing process, 
+          To complete your order and start the 36-hour editing process,
           please complete your payment below:
         </p>
 
@@ -55,8 +55,8 @@ const ThankYouPage: React.FC = () => {
               src={paypalLink}
               width="100%"
               height="650"
-              style={{ 
-                border: '1px solid #ddd', 
+              style={{
+                border: '1px solid #ddd',
                 borderRadius: '4px',
                 marginBottom: '20px',
                 minHeight: '650px'
@@ -64,12 +64,12 @@ const ThankYouPage: React.FC = () => {
               title="PayPal Payment"
               allow="payment"
             />
-            
+
             <p style={{ fontSize: '14px', color: '#888' }}>
               Having trouble with the payment form above?{' '}
-              <a 
-                href={paypalLink} 
-                target="_blank" 
+              <a
+                href={paypalLink}
+                target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: '#007cba' }}
               >
@@ -78,9 +78,9 @@ const ThankYouPage: React.FC = () => {
             </p>
           </div>
         ) : (
-          <div style={{ 
-            padding: '20px', 
-            backgroundColor: '#fff3cd', 
+          <div style={{
+            padding: '20px',
+            backgroundColor: '#fff3cd',
             border: '1px solid #ffeaa7',
             borderRadius: '4px'
           }}>
@@ -91,26 +91,26 @@ const ThankYouPage: React.FC = () => {
         )}
       </div>
 
-      <div style={{ 
-        backgroundColor: '#e8f4f8', 
-        padding: '20px', 
+      <div style={{
+        backgroundColor: '#e8f4f8',
+        padding: '20px',
         borderRadius: '8px',
         textAlign: 'left'
       }}>
         <h3 style={{ color: '#007cba', marginBottom: '15px' }}>
           What Happens Next?
         </h3>
-        
+
         <ol style={{ color: '#666', lineHeight: '1.6' }}>
           <li><strong>Payment Confirmation:</strong> Once payment is received, you'll get an email confirmation</li>
-          <li><strong>Project Assignment:</strong> Your project will be assigned to our editing team within 1 hour</li>
+          <li><strong>Project Assignment:</strong> Your project will be assigned to our editing team soon</li>
           <li><strong>36-Hour Delivery:</strong> Your edited video will be delivered within 36 hours of payment</li>
           <li><strong>Revisions:</strong> One round of revisions is included if needed</li>
         </ol>
-        
-        <div style={{ 
-          marginTop: '20px', 
-          padding: '15px', 
+
+        <div style={{
+          marginTop: '20px',
+          padding: '15px',
           backgroundColor: '#d4edda',
           border: '1px solid #c3e6cb',
           borderRadius: '4px'

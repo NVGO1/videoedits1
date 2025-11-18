@@ -1,7 +1,7 @@
 const { google } = require("googleapis");
 
 exports.handler = async (event, context) => {
-  // Only handle POST requests
+  // Only handle POST requests from Netlify webhooks
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -10,12 +10,30 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    console.log("Form submission received");
+    console.log("Webhook received from Netlify Forms");
+    console.log("Headers:", event.headers);
     
-    // Parse JSON data from our fetch call
-    const formData = JSON.parse(event.body);
-    console.log("Form data:", formData);
+    // Parse the webhook payload
+    const webhookData = JSON.parse(event.body);
+    console.log("Webhook data:", JSON.stringify(webhookData, null, 2));
 
+    // Extract form data
+    const formData = webhookData.data || {};
+    const attachments = webhookData.attachments || [];
+    
+    console.log("Form data:", formData);
+    console.log("Attachments:", attachments);
+
+    // Only process nvgo-order forms
+    if (formData['form-name'] !== 'nvgo-order') {
+      console.log("Ignoring non-nvgo-order form");
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "Form ignored" }),
+      };
+    }
+
+    // Extract form fields
     const {
       name,
       email,
@@ -24,18 +42,22 @@ exports.handler = async (event, context) => {
       keyFeatures,
       projectDetails,
       uploadLink,
-      paypalAmount,
     } = formData;
 
-    // Use the amount passed from the form
-    const amount = parseInt(paypalAmount) || 90;
-
-    console.log("Video length received:", videoLength);
-    console.log("Amount:", amount);
+    // Process file attachments to create file info
+    let fileUploadInfo = "";
+    if (attachments && attachments.length > 0) {
+      const fileList = attachments.map(att => `${att.filename} (${att.url})`).join(', ');
+      fileUploadInfo = `Files uploaded: ${fileList}`;
+      console.log("File upload info:", fileUploadInfo);
+    } else if (uploadLink && uploadLink.trim()) {
+      fileUploadInfo = `Upload link: ${uploadLink}`;
+    } else {
+      fileUploadInfo = "No upload provided";
+    }
 
     // Write to Google Sheets if credentials are available
     console.log("Checking Google Sheets credentials...");
-    
     if (process.env.GOOGLE_SA && process.env.SHEET_ID) {
       try {
         console.log("Setting up Google Sheets...");
@@ -63,7 +85,7 @@ exports.handler = async (event, context) => {
                 contentType || "",
                 keyFeatures || "",
                 projectDetails || "",
-                uploadLink || "No upload provided",
+                fileUploadInfo,
                 "Payment Pending",
               ],
             ],
@@ -73,7 +95,6 @@ exports.handler = async (event, context) => {
         console.log("Successfully wrote to Google Sheets:", result.status);
       } catch (sheetsError) {
         console.error("Google Sheets error:", sheetsError);
-        // Continue even if sheets fails
       }
     } else {
       console.log("Google Sheets credentials not configured");
@@ -86,11 +107,11 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         success: true,
-        message: "Form processed successfully",
+        message: "Webhook processed successfully",
       }),
     };
   } catch (error) {
-    console.error("Function error:", error);
+    console.error("Webhook processing error:", error);
 
     return {
       statusCode: 500,

@@ -8,7 +8,6 @@ interface FormData {
   keyFeatures: string[];
   projectDetails: string;
   uploadLink: string;
-  footage: File[];
 }
 
 const CustomForm: React.FC = () => {
@@ -19,8 +18,7 @@ const CustomForm: React.FC = () => {
     contentType: '',
     keyFeatures: [],
     projectDetails: '',
-    uploadLink: '',
-    footage: []
+    uploadLink: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -37,23 +35,6 @@ const CustomForm: React.FC = () => {
       setErrors(prev => ({
         ...prev,
         [name]: ''
-      }));
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    setFormData(prev => ({
-      ...prev,
-      footage: files
-    }));
-
-    // Clear errors when files are selected
-    if (errors.footage || errors.uploadLink) {
-      setErrors(prev => ({
-        ...prev,
-        footage: '',
-        uploadLink: ''
       }));
     }
   };
@@ -129,19 +110,8 @@ const CustomForm: React.FC = () => {
       newErrors.projectDetails = 'Project details are required';
     }
 
-    // Either footage files OR upload link is required
-    if (formData.footage.length === 0 && !formData.uploadLink.trim()) {
-      newErrors.footage = 'Please either upload files or provide an upload link';
-      newErrors.uploadLink = 'Please either upload files or provide an upload link';
-    }
-
-    // Check total file size (100MB limit for Netlify)
-    if (formData.footage.length > 0) {
-      const totalSize = formData.footage.reduce((sum, file) => sum + file.size, 0);
-      const maxSize = 100 * 1024 * 1024; // 100MB in bytes
-      if (totalSize > maxSize) {
-        newErrors.footage = `Total file size (${Math.round(totalSize / 1024 / 1024)}MB) exceeds 100MB limit. Please use upload link for larger files.`;
-      }
+    if (!formData.uploadLink.trim()) {
+      newErrors.uploadLink = 'Upload link is required';
     }
 
     setErrors(newErrors);
@@ -170,45 +140,26 @@ const CustomForm: React.FC = () => {
       // Generate PayPal link
       const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
 
-      // Create FormData for Netlify Forms submission (with files)
-      const form = e.target as HTMLFormElement;
-      const formDataObj = new FormData(form);
-      formDataObj.append('form-name', 'nvgo-order');
-
-      // Submit to Netlify Forms first (this handles files and appears in dashboard)
-      const netlifyResponse = await fetch('/', {
-        method: 'POST',
-        body: formDataObj
-      });
-
-      console.log('Netlify Forms response:', netlifyResponse.status);
-
-      // Prepare data for Google Sheets (without files, just metadata)
-      const sheetsData = {
-        name: formData.name,
-        email: formData.email,
-        videoLength: formData.videoLength,
-        contentType: formData.contentType,
-        keyFeatures: formData.keyFeatures.join(', '),
-        projectDetails: formData.projectDetails,
-        uploadLink: formData.uploadLink,
-        fileInfo: formData.footage.length > 0 
-          ? `${formData.footage.length} files uploaded (${formData.footage.map(f => f.name).join(', ')}) - Check Netlify Forms dashboard`
-          : formData.uploadLink || 'No upload provided'
-      };
-
-      // Submit to our function for Google Sheets processing
+      // Submit form data to our function
       const response = await fetch('/.netlify/functions/submitOrder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(sheetsData)
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          videoLength: formData.videoLength,
+          contentType: formData.contentType,
+          keyFeatures: formData.keyFeatures.join(', '),
+          projectDetails: formData.projectDetails,
+          uploadLink: formData.uploadLink,
+          paypalAmount: amount,
+          paypalName: formData.name
+        })
       });
 
-      console.log('Function response:', response.status);
-
-      if (response.ok || netlifyResponse.ok) {
+      if (response.ok) {
         // Redirect to thank you page with PayPal link
         window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
       } else {
@@ -271,7 +222,6 @@ const CustomForm: React.FC = () => {
         method="POST"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
-        encType="multipart/form-data"
         onSubmit={handleSubmit}
       >
         {/* Hidden field required for Netlify Forms */}
@@ -418,58 +368,27 @@ const CustomForm: React.FC = () => {
         </div>
 
         <div style={containerStyle}>
-          <label htmlFor="footage" style={labelStyle}>Upload Video Files (Max 100MB total, up to 15 minutes raw footage) *</label>
+          <label htmlFor="uploadLink" style={labelStyle}>Upload Link *</label>
           <input
-            type="file"
-            id="footage"
-            name="footage"
-            accept="video/*"
-            multiple
-            onChange={handleFileChange}
-            style={{
-              ...inputStyle,
-              borderColor: errors.footage ? '#dc2626' : '#d1d5db',
-              paddingTop: '8px',
-              paddingBottom: '8px'
-            }}
-          />
-          {formData.footage.length > 0 && (
-            <div style={{ marginTop: '8px', padding: '8px', backgroundColor: '#f3f4f6', borderRadius: '4px' }}>
-              <small style={{ color: '#374151', fontWeight: '500' }}>
-                Selected files ({formData.footage.length}):
-              </small>
-              {formData.footage.map((file, index) => (
-                <div key={index} style={{ fontSize: '12px', color: '#6b7280', marginTop: '2px' }}>
-                  • {file.name} ({Math.round(file.size / 1024 / 1024 * 100) / 100}MB)
-                </div>
-              ))}
-              <small style={{ color: '#374151', fontWeight: '500', marginTop: '4px', display: 'block' }}>
-                Total: {Math.round(formData.footage.reduce((sum, file) => sum + file.size, 0) / 1024 / 1024 * 100) / 100}MB
-              </small>
-            </div>
-          )}
-          <small style={smallTextStyle}>
-            You can select multiple video files. For files larger than 100MB total, use the link field below. Up to 30 minutes for pro/premium.
-          </small>
-          {errors.footage && <span style={errorStyle}>{errors.footage}</span>}
-        </div>
-
-        <div style={containerStyle}>
-          <label htmlFor="uploadLink" style={labelStyle}>Or Paste Upload Link *</label>
-          <input
-            type="url"
+            type="text"
             id="uploadLink"
             name="uploadLink"
             value={formData.uploadLink}
             onChange={handleChange}
-            placeholder="WeTransfer, Google Drive, Dropbox link, etc."
+            placeholder="Paste your file sharing link or type 'Email' if sending files via email"
             style={{
               ...inputStyle,
               borderColor: errors.uploadLink ? '#dc2626' : '#d1d5db'
             }}
           />
           <small style={smallTextStyle}>
-            Or email large files to support@letsnvgo.com with your name and email
+            Please provide a link from{' '}
+            <a href="https://wetransfer.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'underline' }}>WeTransfer</a>,{' '}
+            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'underline' }}>Google Drive</a>,{' '}
+            <a href="https://www.dropbox.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'underline' }}>Dropbox</a>, etc. 
+            Or type "Email" in the field above and send files to{' '}
+            <a href="mailto:support@letsnvgo.com?subject=NVGO Video Files" style={{ color: '#3b82f6', textDecoration: 'underline' }}>support@letsnvgo.com</a>{' '}
+            with your name and email.
           </small>
           {errors.uploadLink && <span style={errorStyle}>{errors.uploadLink}</span>}
         </div>
