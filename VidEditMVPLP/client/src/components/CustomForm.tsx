@@ -140,8 +140,26 @@ const CustomForm: React.FC = () => {
       // Generate PayPal link
       const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=support@letsnvgo.com&amount=${amount}&item_name=NVGO ${formData.videoLength} Edit&custom=${formData.email}&return=https://letsnvgo.com/thankyou`;
 
-      // Submit form data to our function
-      const response = await fetch('/.netlify/functions/submitOrder', {
+      // First, submit to Netlify Forms using fetch with form-encoded data
+      const formBody = new URLSearchParams();
+      formBody.append('form-name', 'nvgo-order');
+      formBody.append('name', formData.name);
+      formBody.append('email', formData.email);
+      formBody.append('videoLength', formData.videoLength);
+      formBody.append('contentType', formData.contentType);
+      formBody.append('keyFeatures', formData.keyFeatures.join(', '));
+      formBody.append('projectDetails', formData.projectDetails);
+      formBody.append('uploadLink', formData.uploadLink);
+
+      // Submit to Netlify Forms
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formBody.toString()
+      });
+
+      // Then submit to our function for Google Sheets
+      await fetch('/.netlify/functions/submitOrder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,12 +177,8 @@ const CustomForm: React.FC = () => {
         })
       });
 
-      if (response.ok) {
-        // Redirect to thank you page with PayPal link
-        window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
-      } else {
-        throw new Error('Form submission failed');
-      }
+      // Redirect to thank you page with PayPal link
+      window.location.href = `/thankyou?paypal=${encodeURIComponent(paypalLink)}&name=${encodeURIComponent(formData.name)}&amount=${amount}`;
 
     } catch (error) {
       console.error('Form submission error:', error);
