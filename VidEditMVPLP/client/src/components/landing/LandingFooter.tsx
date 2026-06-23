@@ -36,7 +36,7 @@ export function LandingFooter() {
           </div>
 
           <p className="text-sm text-gray-400">
-            Copyright © 2025 NVGO LLC - All Rights Reserved
+            Copyright © 2026 NVGO LLC - All Rights Reserved
           </p>
 
           <p className="text-xs text-gray-500 max-w-2xl mx-auto leading-relaxed">
